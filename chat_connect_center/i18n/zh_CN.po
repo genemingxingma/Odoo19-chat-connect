@@ -1,0 +1,473 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-22 09:03+0000\n"
+"PO-Revision-Date: 2026-02-22 00:00+0000\n"
+"Last-Translator: mamingxing\n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "AI Translation"
+msgstr "AI 翻译"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__translation_endpoint
+msgid "AI translation API endpoint."
+msgstr "AI 翻译 API 地址。"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__account_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__account_id
+msgid "Account"
+msgstr "账号"
+
+#. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_account
+msgid "Accounts"
+msgstr "账号"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__active
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__active
+msgid "Active"
+msgstr "启用"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__auto_create_conversation
+msgid "Auto Create Conversation"
+msgstr "自动创建会话"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_config__auto_create_conversation
+msgid ""
+"Automatically create conversation records when inbound webhook receives "
+"unknown conversation IDs."
+msgstr "当入站 webhook 收到未知会话 ID 时自动创建会话记录。"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_account
+msgid "Chat Accounts"
+msgstr "聊天账号"
+
+#. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_root
+msgid "Chat Connect"
+msgstr "聊天对接"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_account
+msgid "Chat Connect Account"
+msgstr "聊天对接账号"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_config
+msgid "Chat Connect Configuration"
+msgstr "聊天对接配置"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_conversation
+msgid "Chat Connect Conversation"
+msgstr "聊天对接会话"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_message
+msgid "Chat Connect Message"
+msgstr "聊天对接消息"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Close"
+msgstr "关闭"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__state__closed
+msgid "Closed"
+msgstr "已关闭"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__conversation_id
+msgid "Conversation"
+msgstr "会话"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_conversation
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_conversation
+msgid "Conversations"
+msgstr "会话"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__create_uid
+msgid "Created by"
+msgstr "创建人"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__create_date
+msgid "Created on"
+msgstr "创建时间"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__default_channel_id
+msgid "Default Discuss Channel"
+msgstr "默认讨论频道"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_source_lang
+msgid "Default Source Lang"
+msgstr "默认源语言"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_target_lang
+msgid "Default Target Lang"
+msgstr "默认目标语言"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_api_key
+msgid "Default Translation Api Key"
+msgstr "默认翻译 API 密钥"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_endpoint
+msgid "Default Translation Endpoint"
+msgstr "默认翻译接口地址"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_model
+msgid "Default Translation Model"
+msgstr "默认翻译模型"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__direction
+msgid "Direction"
+msgstr "方向"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__mail_channel_id
+msgid "Discuss Channel"
+msgstr "讨论频道"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__display_name
+msgid "Display Name"
+msgstr "显示名称"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__draft
+msgid "Draft"
+msgstr "草稿"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__error_message
+msgid "Error Message"
+msgstr "错误信息"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_access_token
+msgid "External Access Token"
+msgstr "外部访问令牌"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_app_id
+msgid "External App ID"
+msgstr "外部应用 ID"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_app_secret
+msgid "External App Secret"
+msgstr "外部应用密钥"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_conversation_id
+msgid "External Conversation"
+msgstr "外部会话"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__external_message_id
+msgid "External Message"
+msgstr "外部消息"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_visitor_id
+msgid "External Visitor"
+msgstr "外部访客"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_visitor_name
+msgid "External Visitor Name"
+msgstr "外部访客姓名"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__failed
+msgid "Failed"
+msgstr "失败"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__id
+msgid "ID"
+msgstr "ID"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_config__webhook_enforce_token
+msgid "If enabled, account webhook secrets are enforced for inbound requests."
+msgstr "启用后，入站请求将强制校验账号 webhook 密钥。"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__direction__inbound
+msgid "Inbound"
+msgstr "入站"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__line
+msgid "LINE"
+msgstr "LINE"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__write_uid
+msgid "Last Updated by"
+msgstr "最后更新人"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__write_date
+msgid "Last Updated on"
+msgstr "最后更新时间"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__mail_message_id
+msgid "Mail Message"
+msgstr "讨论消息"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_message
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__message_ids
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_message
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
+msgid "Messages"
+msgstr "消息"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__name
+msgid "Name"
+msgstr "名称"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__note
+msgid "Note"
+msgstr "说明"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__notes
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Notes"
+msgstr "备注"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__state__open
+msgid "Open"
+msgstr "打开"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__operator_user_ids
+msgid "Operator Users"
+msgstr "操作员用户"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__direction__outbound
+msgid "Outbound"
+msgstr "出站"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__outbound_enabled
+msgid "Outbound Enabled"
+msgstr "启用出站发送"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__payload_json
+msgid "Payload Json"
+msgstr "原始负载 JSON"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__platform
+msgid "Platform"
+msgstr "平台"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Platform Credentials"
+msgstr "平台凭据"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__received
+msgid "Received"
+msgstr "已接收"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_tree
+msgid "Reset"
+msgstr "重置"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_tree
+msgid "Send"
+msgstr "发送"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__sent
+msgid "Sent"
+msgstr "已发送"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_config
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_settings
+msgid "Settings"
+msgstr "设置"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__webhook_secret
+msgid "Shared secret validated from request header X-Chat-Token."
+msgstr "用于校验请求头 X-Chat-Token 的共享密钥。"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__source_lang
+msgid "Source Lang"
+msgstr "源语言"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__state
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__state
+msgid "State"
+msgstr "状态"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__target_lang
+msgid "Target Lang"
+msgstr "目标语言"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__text
+msgid "Text"
+msgstr "文本"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__translated_text
+msgid "Translated Text"
+msgstr "翻译文本"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_api_key
+msgid "Translation Api Key"
+msgstr "翻译 API 密钥"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_enabled
+msgid "Translation Enabled"
+msgstr "启用翻译"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_endpoint
+msgid "Translation Endpoint"
+msgstr "翻译接口地址"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_model
+msgid "Translation Model"
+msgstr "翻译模型"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wechat
+msgid "WeChat"
+msgstr "微信"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wechat_service
+msgid "WeChat Service Account"
+msgstr "微信公众号（服务号）"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wecom
+msgid "WeCom (Enterprise WeChat)"
+msgstr "企业微信（WeCom）"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__webhook_enforce_token
+msgid "Webhook Enforce Token"
+msgstr "强制校验 Token"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_secret
+msgid "Webhook Secret"
+msgstr "Webhook 密钥"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_uid
+msgid "Webhook Uid"
+msgstr "Webhook 标识"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__whatsapp
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#~ msgid "Chat Connect Center"
+#~ msgstr "聊天对接中心"
+
+#~ msgid "Unified chat bridge for WeChat/LINE/WhatsApp to Odoo Discuss"
+#~ msgstr "将 WeChat/LINE/WhatsApp 统一对接到 Odoo 讨论"
+
+#~ msgid "Default Configuration"
+#~ msgstr "默认配置"
+
+#~ msgid "Webhook UID must be unique."
+#~ msgstr "Webhook UID 必须唯一。"
+
+#~ msgid "Conversation must be unique per account."
+#~ msgstr "每个账号下的会话必须唯一。"
+
+#~ msgid "Text is empty"
+#~ msgstr "文本为空"
+
+#~ msgid "Outbound is disabled for this account"
+#~ msgstr "该账号已禁用出站发送"
+
+#~ msgid "Translated"
+#~ msgstr "翻译"
+
+#~ msgid "External Conversation Id"
+#~ msgstr "外部会话 ID"
+
+#~ msgid "External Visitor Id"
+#~ msgstr "外部访客 ID"
+
+#~ msgid "Message"
+#~ msgstr "消息"
+
+#~ msgid "External Message Id"
+#~ msgstr "外部消息 ID"

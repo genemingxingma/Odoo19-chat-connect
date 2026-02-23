@@ -1,0 +1,52 @@
+<odoo>
+    <record id="view_chat_connect_config_list" model="ir.ui.view">
+        <field name="name">chat.connect.config.list</field>
+        <field name="model">chat.connect.config</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="active"/>
+                <field name="default_source_lang"/>
+                <field name="default_target_lang"/>
+                <field name="default_translation_model"/>
+                <field name="auto_create_conversation"/>
+                <field name="webhook_enforce_token"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_chat_connect_config_form" model="ir.ui.view">
+        <field name="name">chat.connect.config.form</field>
+        <field name="model">chat.connect.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active"/>
+                            <field name="auto_create_conversation"/>
+                            <field name="webhook_enforce_token"/>
+                        </group>
+                        <group>
+                            <field name="default_source_lang"/>
+                            <field name="default_target_lang"/>
+                            <field name="default_translation_endpoint"/>
+                            <field name="default_translation_api_key" password="True"/>
+                            <field name="default_translation_model"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_chat_connect_config" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">chat.connect.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

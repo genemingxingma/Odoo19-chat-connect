@@ -1,0 +1,79 @@
+<odoo>
+    <record id="view_chat_connect_account_tree" model="ir.ui.view">
+        <field name="name">chat.connect.account.tree</field>
+        <field name="model">chat.connect.account</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="platform"/>
+                <field name="active"/>
+                <field name="translation_enabled"/>
+                <field name="outbound_enabled"/>
+                <field name="webhook_uid"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_chat_connect_account_form" model="ir.ui.view">
+        <field name="name">chat.connect.account.form</field>
+        <field name="model">chat.connect.account</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="platform"/>
+                            <field name="active"/>
+                            <field name="operator_user_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="webhook_uid" readonly="1"/>
+                            <field name="default_channel_id"/>
+                            <field name="outbound_enabled"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Platform Credentials">
+                            <group>
+                                <field name="external_app_id"/>
+                                <field name="external_app_secret" password="True"/>
+                                <field name="external_access_token" password="True"/>
+                                <field name="webhook_secret"/>
+                            </group>
+                            <group string="LINE" invisible="platform != 'line'">
+                                <field name="line_channel_secret" password="True"/>
+                                <field name="line_channel_access_token" password="True"/>
+                            </group>
+                            <group string="WeChat Official Account" invisible="platform not in ('wechat', 'wechat_service')">
+                                <field name="wechat_token"/>
+                                <field name="wechat_safe_mode_enabled"/>
+                                <field name="wechat_encoding_aes_key" password="True" invisible="not wechat_safe_mode_enabled"/>
+                                <field name="wechat_access_token_expires_at" readonly="1"/>
+                            </group>
+                        </page>
+                        <page string="AI Translation">
+                            <group>
+                                <field name="translation_enabled"/>
+                                <field name="source_lang" invisible="not translation_enabled"/>
+                                <field name="target_lang" invisible="not translation_enabled"/>
+                                <field name="translation_endpoint" invisible="not translation_enabled"/>
+                                <field name="translation_api_key" password="True" invisible="not translation_enabled"/>
+                                <field name="translation_model" invisible="not translation_enabled"/>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="notes"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_chat_connect_account" model="ir.actions.act_window">
+        <field name="name">Chat Accounts</field>
+        <field name="res_model">chat.connect.account</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

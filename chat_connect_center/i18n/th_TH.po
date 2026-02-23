@@ -1,0 +1,473 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-22 09:03+0000\n"
+"PO-Revision-Date: 2026-02-22 00:00+0000\n"
+"Last-Translator: mamingxing\n"
+"Language-Team: Thai\n"
+"Language: th_TH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "AI Translation"
+msgstr "แปลภาษา AI"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__translation_endpoint
+msgid "AI translation API endpoint."
+msgstr "ปลายทาง API สำหรับแปลภาษา AI"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__account_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__account_id
+msgid "Account"
+msgstr "บัญชี"
+
+#. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_account
+msgid "Accounts"
+msgstr "บัญชี"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__active
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__active
+msgid "Active"
+msgstr "ใช้งาน"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__auto_create_conversation
+msgid "Auto Create Conversation"
+msgstr "สร้างบทสนทนาอัตโนมัติ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_config__auto_create_conversation
+msgid ""
+"Automatically create conversation records when inbound webhook receives "
+"unknown conversation IDs."
+msgstr "สร้างบันทึกบทสนทนาอัตโนมัติเมื่อ webhook ขาเข้าพบรหัสบทสนทนาที่ไม่รู้จัก"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_account
+msgid "Chat Accounts"
+msgstr "บัญชีแชท"
+
+#. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_root
+msgid "Chat Connect"
+msgstr "เชื่อมต่อแชท"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_account
+msgid "Chat Connect Account"
+msgstr "บัญชีเชื่อมต่อแชท"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_config
+msgid "Chat Connect Configuration"
+msgstr "การตั้งค่าศูนย์เชื่อมต่อแชท"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_conversation
+msgid "Chat Connect Conversation"
+msgstr "บทสนทนาเชื่อมต่อแชท"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_message
+msgid "Chat Connect Message"
+msgstr "ข้อความเชื่อมต่อแชท"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Close"
+msgstr "ปิด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__state__closed
+msgid "Closed"
+msgstr "ปิดแล้ว"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__conversation_id
+msgid "Conversation"
+msgstr "บทสนทนา"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_conversation
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_conversation
+msgid "Conversations"
+msgstr "บทสนทนา"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__create_uid
+msgid "Created by"
+msgstr "สร้างโดย"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__create_date
+msgid "Created on"
+msgstr "สร้างเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__default_channel_id
+msgid "Default Discuss Channel"
+msgstr "ช่องสนทนาเริ่มต้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_source_lang
+msgid "Default Source Lang"
+msgstr "ภาษาต้นทางเริ่มต้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_target_lang
+msgid "Default Target Lang"
+msgstr "ภาษาเป้าหมายเริ่มต้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_api_key
+msgid "Default Translation Api Key"
+msgstr "คีย์ API แปลภาษาเริ่มต้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_endpoint
+msgid "Default Translation Endpoint"
+msgstr "ปลายทางแปลภาษาเริ่มต้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_model
+msgid "Default Translation Model"
+msgstr "โมเดลแปลภาษาเริ่มต้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__direction
+msgid "Direction"
+msgstr "ทิศทาง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__mail_channel_id
+msgid "Discuss Channel"
+msgstr "ช่องสนทนา"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__display_name
+msgid "Display Name"
+msgstr "ชื่อที่แสดง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__draft
+msgid "Draft"
+msgstr "ฉบับร่าง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__error_message
+msgid "Error Message"
+msgstr "ข้อความผิดพลาด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_access_token
+msgid "External Access Token"
+msgstr "โทเค็นเข้าถึงภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_app_id
+msgid "External App ID"
+msgstr "รหัสแอปภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_app_secret
+msgid "External App Secret"
+msgstr "รหัสลับแอปภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_conversation_id
+msgid "External Conversation"
+msgstr "บทสนทนาภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__external_message_id
+msgid "External Message"
+msgstr "ข้อความภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_visitor_id
+msgid "External Visitor"
+msgstr "ผู้เยี่ยมชมภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_visitor_name
+msgid "External Visitor Name"
+msgstr "ชื่อผู้เยี่ยมชมภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__failed
+msgid "Failed"
+msgstr "ล้มเหลว"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__id
+msgid "ID"
+msgstr "รหัส"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_config__webhook_enforce_token
+msgid "If enabled, account webhook secrets are enforced for inbound requests."
+msgstr "หากเปิดใช้งาน จะบังคับตรวจสอบ webhook secret ของบัญชีสำหรับคำขอขาเข้า"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__direction__inbound
+msgid "Inbound"
+msgstr "ขาเข้า"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__line
+msgid "LINE"
+msgstr "LINE"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__write_uid
+msgid "Last Updated by"
+msgstr "อัปเดตล่าสุดโดย"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__write_date
+msgid "Last Updated on"
+msgstr "อัปเดตล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__mail_message_id
+msgid "Mail Message"
+msgstr "ข้อความใน Discuss"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_message
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__message_ids
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_message
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
+msgid "Messages"
+msgstr "ข้อความ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__name
+msgid "Name"
+msgstr "ชื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__note
+msgid "Note"
+msgstr "คำอธิบาย"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__notes
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Notes"
+msgstr "หมายเหตุ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__state__open
+msgid "Open"
+msgstr "เปิด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__operator_user_ids
+msgid "Operator Users"
+msgstr "ผู้ใช้ผู้ปฏิบัติงาน"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__direction__outbound
+msgid "Outbound"
+msgstr "ขาออก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__outbound_enabled
+msgid "Outbound Enabled"
+msgstr "เปิดใช้งานขาออก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__payload_json
+msgid "Payload Json"
+msgstr "Payload JSON"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__platform
+msgid "Platform"
+msgstr "แพลตฟอร์ม"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Platform Credentials"
+msgstr "ข้อมูลรับรองแพลตฟอร์ม"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__received
+msgid "Received"
+msgstr "รับแล้ว"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_tree
+msgid "Reset"
+msgstr "รีเซ็ต"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_tree
+msgid "Send"
+msgstr "ส่ง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__sent
+msgid "Sent"
+msgstr "ส่งแล้ว"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_config
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_settings
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__webhook_secret
+msgid "Shared secret validated from request header X-Chat-Token."
+msgstr "รหัสลับร่วมสำหรับตรวจสอบจากส่วนหัว X-Chat-Token"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__source_lang
+msgid "Source Lang"
+msgstr "ภาษาต้นทาง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__state
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__state
+msgid "State"
+msgstr "สถานะ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__target_lang
+msgid "Target Lang"
+msgstr "ภาษาเป้าหมาย"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__text
+msgid "Text"
+msgstr "ข้อความ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__translated_text
+msgid "Translated Text"
+msgstr "ข้อความที่แปล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_api_key
+msgid "Translation Api Key"
+msgstr "คีย์ API การแปล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_enabled
+msgid "Translation Enabled"
+msgstr "เปิดใช้งานการแปล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_endpoint
+msgid "Translation Endpoint"
+msgstr "ปลายทางการแปล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_model
+msgid "Translation Model"
+msgstr "โมเดลการแปล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wechat
+msgid "WeChat"
+msgstr "WeChat"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wechat_service
+msgid "WeChat Service Account"
+msgstr "บัญชีบริการ WeChat"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wecom
+msgid "WeCom (Enterprise WeChat)"
+msgstr "WeCom (WeChat องค์กร)"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__webhook_enforce_token
+msgid "Webhook Enforce Token"
+msgstr "บังคับตรวจสอบโทเค็น Webhook"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_secret
+msgid "Webhook Secret"
+msgstr "รหัสลับ Webhook"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_uid
+msgid "Webhook Uid"
+msgstr "รหัส Webhook"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__whatsapp
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+#~ msgid "Chat Connect Center"
+#~ msgstr "ศูนย์เชื่อมต่อแชท"
+
+#~ msgid "Unified chat bridge for WeChat/LINE/WhatsApp to Odoo Discuss"
+#~ msgstr "ศูนย์กลางเชื่อมต่อ WeChat/LINE/WhatsApp เข้าสู่ Odoo Discuss"
+
+#~ msgid "Default Configuration"
+#~ msgstr "การตั้งค่าเริ่มต้น"
+
+#~ msgid "Webhook UID must be unique."
+#~ msgstr "Webhook UID ต้องไม่ซ้ำ"
+
+#~ msgid "Conversation must be unique per account."
+#~ msgstr "บทสนทนาต้องไม่ซ้ำภายในแต่ละบัญชี"
+
+#~ msgid "Text is empty"
+#~ msgstr "ข้อความว่าง"
+
+#~ msgid "Outbound is disabled for this account"
+#~ msgstr "บัญชีนี้ปิดการส่งขาออก"
+
+#~ msgid "Translated"
+#~ msgstr "แปลแล้ว"
+
+#~ msgid "External Conversation Id"
+#~ msgstr "รหัสบทสนทนาภายนอก"
+
+#~ msgid "External Visitor Id"
+#~ msgstr "รหัสผู้เยี่ยมชมภายนอก"
+
+#~ msgid "Message"
+#~ msgstr "ข้อความ"
+
+#~ msgid "External Message Id"
+#~ msgstr "รหัสข้อความภายนอก"

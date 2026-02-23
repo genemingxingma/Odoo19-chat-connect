@@ -1,0 +1,45 @@
+<odoo>
+    <menuitem
+        id="menu_chat_connect_root"
+        name="Chat Connect"
+        sequence="15"
+        groups="base.group_user"
+        web_icon="chat_connect_center,static/description/icon.png"
+    />
+
+    <menuitem
+        id="menu_chat_connect_account"
+        name="Accounts"
+        parent="menu_chat_connect_root"
+        action="chat_connect_center.action_chat_connect_account"
+        sequence="10"
+        groups="base.group_system"
+    />
+
+    <menuitem
+        id="menu_chat_connect_conversation"
+        name="Conversations"
+        parent="menu_chat_connect_root"
+        action="chat_connect_center.action_chat_connect_conversation"
+        sequence="20"
+        groups="base.group_user"
+    />
+
+    <menuitem
+        id="menu_chat_connect_message"
+        name="Messages"
+        parent="menu_chat_connect_root"
+        action="chat_connect_center.action_chat_connect_message"
+        sequence="30"
+        groups="base.group_user"
+    />
+
+    <menuitem
+        id="menu_chat_connect_settings"
+        name="Settings"
+        parent="menu_chat_connect_root"
+        action="chat_connect_center.action_chat_connect_config"
+        sequence="40"
+        groups="base.group_system"
+    />
+</odoo>

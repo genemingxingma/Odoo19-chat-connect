@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_chat_connect_account_user,chat.connect.account.user,model_chat_connect_account,base.group_user,1,0,0,0
+access_chat_connect_account_manager,chat.connect.account.manager,model_chat_connect_account,base.group_system,1,1,1,1
+access_chat_connect_conversation_user,chat.connect.conversation.user,model_chat_connect_conversation,base.group_user,1,1,1,0
+access_chat_connect_conversation_manager,chat.connect.conversation.manager,model_chat_connect_conversation,base.group_system,1,1,1,1
+access_chat_connect_message_user,chat.connect.message.user,model_chat_connect_message,base.group_user,1,1,1,0
+access_chat_connect_message_manager,chat.connect.message.manager,model_chat_connect_message,base.group_system,1,1,1,1
+access_chat_connect_config_user,chat.connect.config.user,model_chat_connect_config,base.group_user,1,0,0,0
+access_chat_connect_config_manager,chat.connect.config.manager,model_chat_connect_config,base.group_system,1,1,1,1

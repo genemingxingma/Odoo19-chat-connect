@@ -1,0 +1,246 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"POT-Creation-Date: 2026-02-22 00:00+0000\n"
+"PO-Revision-Date: 2026-02-22 00:00+0000\n"
+"Last-Translator: mamingxing\n"
+"Language-Team: Chinese\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Chat Connect Center"
+msgstr "聊天对接中心"
+
+msgid "Unified chat bridge for WeChat/LINE/WhatsApp to Odoo Discuss"
+msgstr "将 WeChat/LINE/WhatsApp 统一对接到 Odoo 讨论"
+
+msgid "Chat Connect"
+msgstr "聊天对接"
+
+msgid "Accounts"
+msgstr "账号"
+
+msgid "Conversations"
+msgstr "会话"
+
+msgid "Messages"
+msgstr "消息"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Chat Accounts"
+msgstr "聊天账号"
+
+msgid "Platform Credentials"
+msgstr "平台凭据"
+
+msgid "AI Translation"
+msgstr "AI 翻译"
+
+msgid "Notes"
+msgstr "备注"
+
+msgid "Send"
+msgstr "发送"
+
+msgid "Reset"
+msgstr "重置"
+
+msgid "Close"
+msgstr "关闭"
+
+msgid "Chat Connect Configuration"
+msgstr "聊天对接配置"
+
+msgid "Default Configuration"
+msgstr "默认配置"
+
+msgid "Chat Connect Account"
+msgstr "聊天对接账号"
+
+msgid "Chat Connect Conversation"
+msgstr "聊天对接会话"
+
+msgid "Chat Connect Message"
+msgstr "聊天对接消息"
+
+msgid "Discuss Channel"
+msgstr "讨论频道"
+
+msgid "Operator Users"
+msgstr "操作员用户"
+
+msgid "Default Discuss Channel"
+msgstr "默认讨论频道"
+
+msgid "External App ID"
+msgstr "外部应用 ID"
+
+msgid "External App Secret"
+msgstr "外部应用密钥"
+
+msgid "External Access Token"
+msgstr "外部访问令牌"
+
+msgid "Shared secret validated from request header X-Chat-Token."
+msgstr "用于校验请求头 X-Chat-Token 的共享密钥。"
+
+msgid "AI translation API endpoint."
+msgstr "AI 翻译 API 地址。"
+
+msgid "Webhook UID must be unique."
+msgstr "Webhook UID 必须唯一。"
+
+msgid "Conversation must be unique per account."
+msgstr "每个账号下的会话必须唯一。"
+
+msgid "Automatically create conversation records when inbound webhook receives unknown conversation IDs."
+msgstr "当入站 webhook 收到未知会话 ID 时自动创建会话记录。"
+
+msgid "If enabled, account webhook secrets are enforced for inbound requests."
+msgstr "启用后，入站请求将强制校验账号 webhook 密钥。"
+
+msgid "Open"
+msgstr "打开"
+
+msgid "Closed"
+msgstr "已关闭"
+
+msgid "Inbound"
+msgstr "入站"
+
+msgid "Outbound"
+msgstr "出站"
+
+msgid "Draft"
+msgstr "草稿"
+
+msgid "Received"
+msgstr "已接收"
+
+msgid "Sent"
+msgstr "已发送"
+
+msgid "Failed"
+msgstr "失败"
+
+msgid "Text is empty"
+msgstr "文本为空"
+
+msgid "Outbound is disabled for this account"
+msgstr "该账号已禁用出站发送"
+
+msgid "Translated"
+msgstr "翻译"
+
+msgid "WeChat"
+msgstr "微信"
+
+msgid "LINE"
+msgstr "LINE"
+
+msgid "WhatsApp"
+msgstr "WhatsApp"
+
+msgid "WeCom (Enterprise WeChat)"
+msgstr "企业微信（WeCom）"
+
+msgid "WeChat Service Account"
+msgstr "微信公众号（服务号）"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Active"
+msgstr "启用"
+
+msgid "Platform"
+msgstr "平台"
+
+msgid "Webhook Uid"
+msgstr "Webhook 标识"
+
+msgid "Webhook Secret"
+msgstr "Webhook 密钥"
+
+msgid "Translation Enabled"
+msgstr "启用翻译"
+
+msgid "Source Lang"
+msgstr "源语言"
+
+msgid "Target Lang"
+msgstr "目标语言"
+
+msgid "Translation Endpoint"
+msgstr "翻译接口地址"
+
+msgid "Translation Api Key"
+msgstr "翻译 API 密钥"
+
+msgid "Translation Model"
+msgstr "翻译模型"
+
+msgid "Outbound Enabled"
+msgstr "启用出站发送"
+
+msgid "External Conversation Id"
+msgstr "外部会话 ID"
+
+msgid "External Visitor Id"
+msgstr "外部访客 ID"
+
+msgid "External Visitor Name"
+msgstr "外部访客姓名"
+
+msgid "Message"
+msgstr "消息"
+
+msgid "Direction"
+msgstr "方向"
+
+msgid "External Message Id"
+msgstr "外部消息 ID"
+
+msgid "Translated Text"
+msgstr "翻译文本"
+
+msgid "Payload Json"
+msgstr "原始负载 JSON"
+
+msgid "Mail Message"
+msgstr "讨论消息"
+
+msgid "Error Message"
+msgstr "错误信息"
+
+msgid "State"
+msgstr "状态"
+
+msgid "Auto Create Conversation"
+msgstr "自动创建会话"
+
+msgid "Webhook Enforce Token"
+msgstr "强制校验 Token"
+
+msgid "Default Source Lang"
+msgstr "默认源语言"
+
+msgid "Default Target Lang"
+msgstr "默认目标语言"
+
+msgid "Default Translation Endpoint"
+msgstr "默认翻译接口地址"
+
+msgid "Default Translation Api Key"
+msgstr "默认翻译 API 密钥"
+
+msgid "Default Translation Model"
+msgstr "默认翻译模型"
+
+msgid "Note"
+msgstr "说明"
