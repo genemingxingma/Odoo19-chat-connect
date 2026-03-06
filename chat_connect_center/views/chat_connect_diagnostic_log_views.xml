@@ -1,0 +1,86 @@
+<odoo>
+    <record id="view_chat_connect_diagnostic_log_list" model="ir.ui.view">
+        <field name="name">chat.connect.diagnostic.log.list</field>
+        <field name="model">chat.connect.diagnostic.log</field>
+        <field name="arch" type="xml">
+            <list create="false" delete="false" edit="false">
+                <field name="create_date"/>
+                <field name="level"/>
+                <field name="event"/>
+                <field name="platform"/>
+                <field name="account_id"/>
+                <field name="http_status"/>
+                <field name="message"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_chat_connect_diagnostic_log_search" model="ir.ui.view">
+        <field name="name">chat.connect.diagnostic.log.search</field>
+        <field name="model">chat.connect.diagnostic.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="event" string="Event"/>
+                <field name="platform" string="Platform"/>
+                <field name="account_id" string="Account"/>
+                <field name="webhook_uid" string="Webhook UID"/>
+                <filter string="Errors" name="errors" domain="[('level', '=', 'error')]"/>
+                <filter string="Warnings" name="warnings" domain="[('level', '=', 'warning')]"/>
+                <separator/>
+                <filter string="Group by Level" name="group_level" context="{'group_by': 'level'}"/>
+                <filter string="Group by Event" name="group_event" context="{'group_by': 'event'}"/>
+                <filter string="Group by Platform" name="group_platform" context="{'group_by': 'platform'}"/>
+                <filter string="Group by Account" name="group_account" context="{'group_by': 'account_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_chat_connect_diagnostic_log_form" model="ir.ui.view">
+        <field name="name">chat.connect.diagnostic.log.form</field>
+        <field name="model">chat.connect.diagnostic.log</field>
+        <field name="arch" type="xml">
+            <form create="false" delete="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="create_date"/>
+                            <field name="level"/>
+                            <field name="event"/>
+                            <field name="message"/>
+                            <field name="platform"/>
+                            <field name="webhook_uid"/>
+                            <field name="account_id"/>
+                            <field name="conversation_id"/>
+                            <field name="chat_message_id"/>
+                        </group>
+                        <group>
+                            <field name="endpoint"/>
+                            <field name="http_method"/>
+                            <field name="http_status"/>
+                            <field name="remote_ip"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Request">
+                            <field name="request_headers"/>
+                            <field name="request_payload"/>
+                        </page>
+                        <page string="Response">
+                            <field name="response_payload"/>
+                        </page>
+                        <page string="Exception">
+                            <field name="exception"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_chat_connect_diagnostic_log" model="ir.actions.act_window">
+        <field name="name">Diagnostic Logs</field>
+        <field name="res_model">chat.connect.diagnostic.log</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_chat_connect_diagnostic_log_search"/>
+    </record>
+</odoo>

@@ -9,7 +9,7 @@ import struct
 
 import requests
 
-from odoo import _, api, fields, models
+from odoo import _, api, fields, models, Command
 
 _logger = logging.getLogger(__name__)
 
@@ -37,6 +37,8 @@ class ChatConnectAccount(models.Model):
         required=True,
         index=True,
     )
+    webhook_url = fields.Char(compute="_compute_webhook_urls", string="Webhook URL")
+    webhook_send_url = fields.Char(compute="_compute_webhook_urls", string="Webhook Send URL")
     webhook_secret = fields.Char(help="Shared secret validated from request header X-Chat-Token.")
 
     external_app_id = fields.Char(string="External App ID")
@@ -51,6 +53,8 @@ class ChatConnectAccount(models.Model):
 
     operator_user_ids = fields.Many2many("res.users", string="Operator Users")
     default_channel_id = fields.Many2one("discuss.channel", string="Default Discuss Channel")
+    livechat_channel_id = fields.Many2one("im_livechat.channel", string="Odoo Livechat Channel")
+    chatbot_script_id = fields.Many2one("chatbot.script", string="Chatbot Script")
 
     translation_enabled = fields.Boolean(default=False)
     source_lang = fields.Char(default="auto")
@@ -77,12 +81,51 @@ class ChatConnectAccount(models.Model):
             vals.setdefault("translation_endpoint", config.default_translation_endpoint or False)
             vals.setdefault("translation_api_key", config.default_translation_api_key or False)
             vals.setdefault("translation_model", config.default_translation_model or "gpt-4o-mini")
-        return super().create(vals_list)
+        records = super().create(vals_list)
+        records._sync_default_channel_members()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if "default_channel_id" in vals or "operator_user_ids" in vals:
+            self._sync_default_channel_members()
+        return res
+
+    def _sync_default_channel_members(self):
+        member_model = self.env["discuss.channel.member"].sudo()
+        now = fields.Datetime.now()
+        for record in self:
+            channel = record.default_channel_id.sudo()
+            if not channel:
+                continue
+            partner_ids = record.operator_user_ids.partner_id.ids
+            if not partner_ids:
+                continue
+            channel.sudo().add_members(partner_ids=partner_ids, post_joined_message=False)
+            members = member_model.search(
+                [
+                    ("channel_id", "=", channel.id),
+                    ("partner_id", "in", partner_ids),
+                ]
+            )
+            if members:
+                members.write({"unpin_dt": False, "last_interest_dt": now})
 
     def _webhook_url(self):
         self.ensure_one()
         base = self.env["ir.config_parameter"].sudo().get_param("web.base.url", "")
         return f"{base}/chat_connect_center/webhook/{self.platform}/{self.webhook_uid}"
+
+    @api.depends("platform", "webhook_uid")
+    def _compute_webhook_urls(self):
+        base = (self.env["ir.config_parameter"].sudo().get_param("web.base.url", "") or "").rstrip("/")
+        for record in self:
+            if not base or not record.platform or not record.webhook_uid:
+                record.webhook_url = False
+                record.webhook_send_url = False
+                continue
+            record.webhook_url = f"{base}/chat_connect_center/webhook/{record.platform}/{record.webhook_uid}"
+            record.webhook_send_url = f"{record.webhook_url}/send"
 
     def _translate_text(self, text):
         self.ensure_one()
@@ -123,14 +166,57 @@ class ChatConnectAccount(models.Model):
             return self._line_send_message(conversation, text, reply_token=reply_token)
         if self.platform in ("wechat", "wechat_service"):
             return self._wechat_send_message(conversation, text)
+        raise ValueError(_("Outbound sending is not implemented for platform: %s") % self.platform)
 
-        _logger.info(
-            "[chat_connect_center] outbound message queued platform=%s conv=%s attachments=%s",
-            self.platform,
-            conversation.external_conversation_id,
-            bool(attachments),
+    def _create_livechat_discuss_channel(self, visitor_name="", visitor_external_id=""):
+        self.ensure_one()
+        if not self.livechat_channel_id:
+            return False, False
+
+        livechat_channel = self.livechat_channel_id.sudo()
+        # Resolve bot settings dynamically from livechat rules instead of static account fields.
+        rule_model = self.env["im_livechat.channel.rule"].sudo()
+        livechat_rule = rule_model.match_rule(channel_id=livechat_channel.id, url="", country_id=False) or livechat_channel.rule_ids[:1]
+        chatbot_script = livechat_rule.chatbot_script_id if livechat_rule else self.env["chatbot.script"]
+        chatbot_script_id = chatbot_script.id or False
+        ai_agent_id = livechat_rule.ai_agent_id.id if livechat_rule and getattr(livechat_rule, "ai_agent_id", False) else False
+        operator_info = livechat_channel._get_operator_info(
+            previous_operator_id=None,
+            chatbot_script_id=chatbot_script_id,
+            ai_agent_id=ai_agent_id,
+            country_id=False,
+            lang=self.env.user.lang or "en_US",
         )
-        return str(uuid.uuid4())
+        if not operator_info.get("operator_partner"):
+            raise ValueError(_("No available operator or chatbot for selected Odoo Livechat Channel."))
+
+        channel_vals = livechat_channel._get_livechat_discuss_channel_vals(**operator_info)
+        lang = self.env["res.lang"].search([("code", "=", self.env.user.lang or "en_US")], limit=1)
+        channel_vals.update(
+            {
+                "country_id": False,
+                "livechat_lang_id": lang.id or False,
+            }
+        )
+        guest = self.env["mail.guest"].sudo().create(
+            {
+                "name": visitor_name or visitor_external_id or _("Visitor"),
+            }
+        )
+        channel_vals["channel_member_ids"] = list(channel_vals.get("channel_member_ids", [])) + [
+            Command.create(
+                {
+                    "livechat_member_type": "visitor",
+                    "guest_id": guest.id,
+                }
+            )
+        ]
+
+        channel = self.env["discuss.channel"].sudo().create(channel_vals)
+        operator_partner_ids = self.operator_user_ids.partner_id.ids
+        if operator_partner_ids:
+            channel.sudo().add_members(partner_ids=operator_partner_ids, post_joined_message=False)
+        return channel, guest
 
     def _line_get_access_token(self):
         self.ensure_one()
@@ -195,7 +281,7 @@ class ChatConnectAccount(models.Model):
             "Content-Type": "application/json",
         }
 
-        recipient_user_id = conversation.external_visitor_id or conversation.external_conversation_id
+        recipient_id = conversation.external_conversation_id
         request_body = {"messages": [{"type": "text", "text": text}]}
         endpoint = ""
         if reply_token:
@@ -203,7 +289,7 @@ class ChatConnectAccount(models.Model):
             request_body["replyToken"] = reply_token
         else:
             endpoint = "https://api.line.me/v2/bot/message/push"
-            request_body["to"] = recipient_user_id
+            request_body["to"] = recipient_id
 
         response = requests.post(endpoint, headers=headers, data=json.dumps(request_body), timeout=20)
         if response.status_code >= 400:

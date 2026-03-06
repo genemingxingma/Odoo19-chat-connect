@@ -85,6 +85,13 @@ curl -X POST 'http://127.0.0.1:8069/chat_connect_center/webhook/wechat/<webhook_
    - `https://<your-domain>/chat_connect_center/webhook/wechat/<webhook_uid>`
 4. WeChat will call GET verification on this URL and module will return `echostr` when signature passes.
 
+## Remote test target
+
+Future environment can use:
+
+- Host: `103.13.28.203`
+- SSH port: `3310`
+- Username: `mamingxing`
 
 Configure this module on remote Odoo and call webhook using external platform callbacks.
 

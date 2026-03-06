@@ -1,3 +1,4 @@
+import traceback
 import xml.etree.ElementTree as ET
 
 from odoo import http
@@ -5,6 +6,62 @@ from odoo.http import request
 
 
 class ChatConnectWebhookController(http.Controller):
+    @staticmethod
+    def _mask_secret(value):
+        text = str(value or "")
+        if len(text) <= 6:
+            return "***"
+        return f"{text[:3]}***{text[-3:]}"
+
+    def _collect_headers(self):
+        headers = {}
+        for key, value in request.httprequest.headers.items():
+            lower_key = key.lower()
+            if any(tag in lower_key for tag in ("authorization", "token", "secret", "signature")):
+                headers[key] = self._mask_secret(value)
+            else:
+                headers[key] = value
+        return headers
+
+    def _log_diag(
+        self,
+        event,
+        level="info",
+        account=None,
+        platform="",
+        webhook_uid="",
+        message="",
+        payload=None,
+        response_payload=None,
+        http_status=200,
+        exception="",
+        conversation=None,
+        chat_message=None,
+    ):
+        try:
+            request.env["chat.connect.diagnostic.log"].sudo().create(
+                {
+                    "level": level,
+                    "event": event,
+                    "message": message,
+                    "platform": platform or (account.platform if account else ""),
+                    "webhook_uid": webhook_uid or (account.webhook_uid if account else ""),
+                    "account_id": account.id if account else False,
+                    "conversation_id": conversation.id if conversation else False,
+                    "chat_message_id": chat_message.id if chat_message else False,
+                    "endpoint": request.httprequest.path,
+                    "http_method": request.httprequest.method,
+                    "http_status": http_status,
+                    "remote_ip": request.httprequest.remote_addr,
+                    "request_headers": self._collect_headers(),
+                    "request_payload": payload or {},
+                    "response_payload": response_payload or {},
+                    "exception": exception or "",
+                }
+            )
+        except Exception:
+            return
+
     @staticmethod
     def _get_payload():
         data = request.httprequest.get_json(silent=True)
@@ -86,9 +143,16 @@ class ChatConnectWebhookController(http.Controller):
     def receive_webhook(self, platform, webhook_uid, **kwargs):
         account = self._resolve_account(platform, webhook_uid)
         if not account:
+            self._log_diag(
+                event="receive_webhook.account_not_found",
+                level="warning",
+                platform=platform,
+                webhook_uid=webhook_uid,
+                message="Active account not found for webhook callback.",
+                http_status=404,
+            )
             return self._json({"ok": False, "error": "account_not_found"}, status=404)
 
-        # WeChat Official Account verification callback (GET)
         if platform in ("wechat", "wechat_service") and request.httprequest.method == "GET":
             args = request.httprequest.args
             signature = args.get("signature")
@@ -96,14 +160,36 @@ class ChatConnectWebhookController(http.Controller):
             nonce = args.get("nonce")
             echostr = args.get("echostr") or ""
             if account._wechat_verify_signature(signature, timestamp, nonce):
+                self._log_diag(
+                    event="wechat.verify.ok",
+                    account=account,
+                    message="WeChat GET verification passed.",
+                    payload={"timestamp": timestamp, "nonce": nonce},
+                    response_payload={"echostr": echostr},
+                )
                 return self._text(echostr)
+            self._log_diag(
+                event="wechat.verify.invalid_signature",
+                level="warning",
+                account=account,
+                message="WeChat GET verification failed due to invalid signature.",
+                payload={"timestamp": timestamp, "nonce": nonce},
+                http_status=401,
+            )
             return self._text("invalid signature", status=401)
 
         raw_body = request.httprequest.get_data() or b""
-        # LINE official signature validation
         if platform == "line":
             line_signature = request.httprequest.headers.get("X-Line-Signature")
             if not account._line_verify_signature(raw_body, line_signature):
+                self._log_diag(
+                    event="line.verify.invalid_signature",
+                    level="warning",
+                    account=account,
+                    message="LINE webhook rejected due to invalid X-Line-Signature.",
+                    payload={"raw_body_size": len(raw_body)},
+                    http_status=401,
+                )
                 return self._json({"ok": False, "error": "invalid_line_signature"}, status=401)
             payload = self._get_payload()
             normalized_events = account._line_parse_events(payload)
@@ -111,6 +197,14 @@ class ChatConnectWebhookController(http.Controller):
             for item in normalized_events:
                 conversation, error = self._ensure_conversation(account, item)
                 if error:
+                    self._log_diag(
+                        event="line.ensure_conversation.failed",
+                        level="warning",
+                        account=account,
+                        message=f"Unable to resolve conversation: {error}",
+                        payload=item,
+                        http_status=400,
+                    )
                     continue
                 record = dict(item)
                 raw_event = record.pop("raw_event", None)
@@ -122,21 +216,47 @@ class ChatConnectWebhookController(http.Controller):
                         "sender_name": record.get("sender_name"),
                         "text": record.get("text"),
                         "conversation_id": record.get("conversation_id"),
+                        "message_type": record.get("message_type"),
+                        "media_id": record.get("media_id"),
+                        "media_url": record.get("media_url"),
                         "reply_token": record.get("reply_token"),
                         "platform": "line",
                         "raw_event": raw_event or {},
                     }
                 )
+                self._log_diag(
+                    event="line.webhook.message_ingested",
+                    account=account,
+                    message="LINE inbound message ingested.",
+                    payload=record,
+                    response_payload={"conversation_id": conversation.id, "message_id": message.id},
+                    conversation=conversation,
+                    chat_message=message,
+                )
                 created.append({"conversation_id": conversation.id, "message_id": message.id})
+            self._log_diag(
+                event="line.webhook.ok",
+                account=account,
+                message=f"LINE webhook processed successfully, count={len(created)}.",
+                payload={"events_count": len(normalized_events)},
+                response_payload={"count": len(created)},
+            )
             return self._json({"ok": True, "count": len(created), "records": created})
 
-        # WeChat official account callback (POST XML)
         if platform in ("wechat", "wechat_service"):
             args = request.httprequest.args
             signature = args.get("signature")
             timestamp = args.get("timestamp")
             nonce = args.get("nonce")
             if not account._wechat_verify_signature(signature, timestamp, nonce):
+                self._log_diag(
+                    event="wechat.verify.invalid_signature",
+                    level="warning",
+                    account=account,
+                    message="WeChat POST rejected due to invalid signature.",
+                    payload={"timestamp": timestamp, "nonce": nonce},
+                    http_status=401,
+                )
                 return self._text("invalid signature", status=401)
 
             data = self._parse_xml_body(raw_body)
@@ -144,6 +264,14 @@ class ChatConnectWebhookController(http.Controller):
                 msg_signature = args.get("msg_signature")
                 encrypt_text = data.get("Encrypt")
                 if not account._wechat_verify_msg_signature(msg_signature, timestamp, nonce, encrypt_text):
+                    self._log_diag(
+                        event="wechat.verify.invalid_msg_signature",
+                        level="warning",
+                        account=account,
+                        message="WeChat safe mode message signature validation failed.",
+                        payload={"timestamp": timestamp, "nonce": nonce},
+                        http_status=401,
+                    )
                     return self._text("invalid msg signature", status=401)
                 decrypted_xml = account._wechat_decrypt_message(encrypt_text)
                 data = self._parse_xml_body(decrypted_xml.encode("utf-8"))
@@ -179,22 +307,61 @@ class ChatConnectWebhookController(http.Controller):
             }
             conversation, error = self._ensure_conversation(account, payload)
             if error:
+                self._log_diag(
+                    event="wechat.ensure_conversation.failed",
+                    level="warning",
+                    account=account,
+                    message=f"Unable to resolve conversation: {error}",
+                    payload=payload,
+                )
                 return self._text("success")
-            conversation.ingest_inbound(payload)
-            # WeChat expects plain text response.
+            message = conversation.ingest_inbound(payload)
+            self._log_diag(
+                event="wechat.webhook.message_ingested",
+                account=account,
+                message="WeChat inbound message ingested.",
+                payload=payload,
+                response_payload={"conversation_id": conversation.id, "message_id": message.id},
+                conversation=conversation,
+                chat_message=message,
+            )
             return self._text("success")
 
-        # Generic fallback
         payload = self._get_payload()
         config = request.env["chat.connect.config"].sudo().search([("active", "=", True)], limit=1)
         given_token = request.httprequest.headers.get("X-Chat-Token")
         enforce_token = True if not config else bool(config.webhook_enforce_token)
         if enforce_token and account.webhook_secret and given_token != account.webhook_secret:
+            self._log_diag(
+                event="generic.verify.invalid_token",
+                level="warning",
+                account=account,
+                message="Generic webhook rejected due to X-Chat-Token mismatch.",
+                payload=payload,
+                http_status=401,
+            )
             return self._json({"ok": False, "error": "invalid_token"}, status=401)
         conversation, error = self._ensure_conversation(account, payload)
         if error:
+            self._log_diag(
+                event="generic.ensure_conversation.failed",
+                level="warning",
+                account=account,
+                message=f"Unable to resolve conversation: {error}",
+                payload=payload,
+                http_status=400,
+            )
             return self._json({"ok": False, "error": error}, status=400)
         message = conversation.ingest_inbound(payload)
+        self._log_diag(
+            event="generic.webhook.message_ingested",
+            account=account,
+            message="Generic inbound message ingested.",
+            payload=payload,
+            response_payload={"conversation_id": conversation.id, "message_id": message.id},
+            conversation=conversation,
+            chat_message=message,
+        )
         return self._json({"ok": True, "conversation_id": conversation.id, "message_id": message.id})
 
     @http.route(
@@ -219,10 +386,27 @@ class ChatConnectWebhookController(http.Controller):
             )
         )
         if not account:
+            self._log_diag(
+                event="send_message.account_not_found",
+                level="warning",
+                platform=platform,
+                webhook_uid=webhook_uid,
+                message="Send endpoint account not found.",
+                payload=payload,
+                http_status=404,
+            )
             return self._json({"ok": False, "error": "account_not_found"}, status=404)
 
         conversation_ref = payload.get("conversation_id")
         if not conversation_ref:
+            self._log_diag(
+                event="send_message.invalid_payload",
+                level="warning",
+                account=account,
+                message="conversation_id is required.",
+                payload=payload,
+                http_status=400,
+            )
             return self._json({"ok": False, "error": "conversation_id_required"}, status=400)
 
         conversation = (
@@ -237,6 +421,14 @@ class ChatConnectWebhookController(http.Controller):
             )
         )
         if not conversation:
+            self._log_diag(
+                event="send_message.conversation_not_found",
+                level="warning",
+                account=account,
+                message="Conversation not found for outbound message.",
+                payload=payload,
+                http_status=404,
+            )
             return self._json({"ok": False, "error": "conversation_not_found"}, status=404)
 
         text = payload.get("text") or ""
@@ -252,7 +444,33 @@ class ChatConnectWebhookController(http.Controller):
                 }
             )
         )
-        message.action_send_outbound()
+        try:
+            message.action_send_outbound()
+        except Exception as err:
+            self._log_diag(
+                event="send_message.exception",
+                level="error",
+                account=account,
+                message="Outbound send raised unexpected exception.",
+                payload=payload,
+                http_status=500,
+                exception=f"{err}\n{traceback.format_exc()}",
+                conversation=conversation,
+                chat_message=message,
+            )
+            raise
+
+        self._log_diag(
+            event="send_message.result",
+            level="info" if message.state == "sent" else "warning",
+            account=account,
+            message=f"Outbound send result state={message.state}.",
+            payload=payload,
+            response_payload={"message_id": message.id, "state": message.state, "error": message.error_message or ""},
+            http_status=200 if message.state == "sent" else 400,
+            conversation=conversation,
+            chat_message=message,
+        )
         return self._json(
             {
                 "ok": message.state == "sent",

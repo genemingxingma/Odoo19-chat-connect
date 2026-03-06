@@ -8,7 +8,7 @@
     "company": "iMyTest",
     "images": ["static/description/icon.png"],
     "license": "LGPL-3",
-    "depends": ["base", "mail"],
+    "depends": ["base", "mail", "im_livechat"],
     "data": [
         "security/ir.model.access.csv",
         "data/ir_cron.xml",
@@ -16,6 +16,7 @@
         "views/chat_connect_config_views.xml",
         "views/chat_connect_conversation_views.xml",
         "views/chat_connect_message_views.xml",
+        "views/chat_connect_diagnostic_log_views.xml",
         "views/chat_connect_menus.xml"
     ],
     "installable": True,

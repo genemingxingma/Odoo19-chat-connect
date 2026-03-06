@@ -38,12 +38,40 @@ class ChatConnectMessage(models.Model):
     next_retry_at = fields.Datetime()
     last_attempt_at = fields.Datetime()
 
+    def _diag_log(self, event, level="info", message="", payload=None, response_payload=None, http_status=200, exception=""):
+        for record in self:
+            record.env["chat.connect.diagnostic.log"].sudo().create(
+                {
+                    "level": level,
+                    "event": event,
+                    "message": message,
+                    "platform": record.account_id.platform or "",
+                    "webhook_uid": record.account_id.webhook_uid or "",
+                    "account_id": record.account_id.id,
+                    "conversation_id": record.conversation_id.id,
+                    "chat_message_id": record.id,
+                    "endpoint": "internal:outbound",
+                    "http_method": "INTERNAL",
+                    "http_status": http_status,
+                    "request_payload": payload or {},
+                    "response_payload": response_payload or {},
+                    "exception": exception or "",
+                }
+            )
+
     def action_send_outbound(self):
         for record in self:
             if record.direction != "outbound":
                 continue
             if not record.text:
                 record.write({"state": "failed", "error_message": "Text is empty", "last_attempt_at": fields.Datetime.now()})
+                record._diag_log(
+                    event="outbound.invalid_payload",
+                    level="warning",
+                    message="Outbound text is empty.",
+                    payload=record.payload_json or {},
+                    http_status=400,
+                )
                 continue
             try:
                 payload = record.payload_json or {}
@@ -52,7 +80,7 @@ class ChatConnectMessage(models.Model):
                     record.text,
                     reply_token=payload.get("reply_token"),
                 )
-                body = f"<p><b>Outbound</b>: {escape(record.text)}</p>"
+                body = f"Outbound: {escape(record.text)}"
                 message = record.conversation_id._post_to_discuss(body)
                 record.write(
                     {
@@ -63,6 +91,13 @@ class ChatConnectMessage(models.Model):
                         "last_attempt_at": fields.Datetime.now(),
                         "next_retry_at": False,
                     }
+                )
+                record._diag_log(
+                    event="outbound.sent",
+                    level="info",
+                    message="Outbound message sent successfully.",
+                    payload=payload,
+                    response_payload={"external_message_id": external_message_id},
                 )
             except Exception as err:  # pragma: no cover - runtime integration error path
                 retry_count = (record.retry_count or 0) + 1
@@ -75,6 +110,15 @@ class ChatConnectMessage(models.Model):
                         "last_attempt_at": fields.Datetime.now(),
                         "next_retry_at": next_retry if retry_count < (record.max_retries or 1) else False,
                     }
+                )
+                record._diag_log(
+                    event="outbound.failed",
+                    level="error",
+                    message=f"Outbound send failed: {err}",
+                    payload=record.payload_json or {},
+                    response_payload={"retry_count": retry_count, "max_retries": record.max_retries},
+                    http_status=500,
+                    exception=str(err),
                 )
 
     def action_reset_draft(self):

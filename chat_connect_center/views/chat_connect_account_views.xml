@@ -29,6 +29,8 @@
                         </group>
                         <group>
                             <field name="webhook_uid" readonly="1"/>
+                            <field name="webhook_url" readonly="1" widget="CopyClipboardChar"/>
+                            <field name="webhook_send_url" readonly="1" widget="CopyClipboardChar"/>
                             <field name="default_channel_id"/>
                             <field name="outbound_enabled"/>
                         </group>
@@ -40,6 +42,8 @@
                                 <field name="external_app_secret" password="True"/>
                                 <field name="external_access_token" password="True"/>
                                 <field name="webhook_secret"/>
+                                <field name="livechat_channel_id"/>
+                                <field name="chatbot_script_id" invisible="not livechat_channel_id"/>
                             </group>
                             <group string="LINE" invisible="platform != 'line'">
                                 <field name="line_channel_secret" password="True"/>

@@ -35,6 +35,15 @@
     />
 
     <menuitem
+        id="menu_chat_connect_diagnostic_log"
+        name="Diagnostics"
+        parent="menu_chat_connect_root"
+        action="chat_connect_center.action_chat_connect_diagnostic_log"
+        sequence="35"
+        groups="base.group_system"
+    />
+
+    <menuitem
         id="menu_chat_connect_settings"
         name="Settings"
         parent="menu_chat_connect_root"
