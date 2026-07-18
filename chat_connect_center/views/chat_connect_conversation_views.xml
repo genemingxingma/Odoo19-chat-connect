@@ -1,15 +1,18 @@
 <odoo>
     <record id="view_chat_connect_conversation_tree" model="ir.ui.view">
-        <field name="name">chat.connect.conversation.tree</field>
+        <field name="name">chat.connect.conversation.list</field>
         <field name="model">chat.connect.conversation</field>
         <field name="arch" type="xml">
-            <list>
+            <list create="false" delete="false" edit="false" decoration-muted="state == 'closed'">
                 <field name="name"/>
                 <field name="account_id"/>
-                <field name="external_conversation_id"/>
-                <field name="external_visitor_name"/>
-                <field name="state"/>
-                <field name="mail_channel_id"/>
+                <field name="conversation_type" widget="badge"/>
+                <field name="external_visitor_name" optional="show"/>
+                <field name="customer_lang" optional="show"/>
+                <field name="last_inbound_at" optional="show"/>
+                <field name="last_outbound_at" optional="hide"/>
+                <field name="state" widget="badge"/>
+                <field name="mail_channel_id" optional="hide"/>
             </list>
         </field>
     </record>
@@ -18,32 +21,50 @@
         <field name="name">chat.connect.conversation.form</field>
         <field name="model">chat.connect.conversation</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false" delete="false" edit="false">
+                <header><field name="state" widget="statusbar" statusbar_visible="open,closed"/></header>
                 <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
                     <group>
                         <group>
-                            <field name="name" readonly="1"/>
                             <field name="account_id"/>
-                            <field name="state"/>
-                        </group>
-                        <group>
+                            <field name="platform" invisible="1"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="conversation_type"/>
                             <field name="external_conversation_id"/>
                             <field name="external_visitor_id"/>
                             <field name="external_visitor_name"/>
-                            <field name="mail_channel_id" readonly="1"/>
+                            <field name="customer_lang"/>
+                        </group>
+                        <group>
+                            <field name="mail_channel_id"/>
+                            <field name="livechat_guest_id"/>
+                            <field name="last_inbound_at"/>
+                            <field name="last_outbound_at"/>
+                            <field name="wechat_outbound_window_expires_at" invisible="platform not in ('wechat', 'wechat_service')"/>
+                            <field name="wechat_outbound_quota_remaining" invisible="platform not in ('wechat', 'wechat_service')"/>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Messages">
-                            <field name="message_ids">
-                                <list editable="bottom">
-                                    <field name="direction"/>
+                        <page string="Archived Messages">
+                            <field name="message_ids" readonly="1">
+                                <list create="false" delete="false" edit="false">
+                                    <field name="create_date"/>
+                                    <field name="direction" widget="badge"/>
+                                    <field name="message_type"/>
                                     <field name="text"/>
-                                    <field name="translated_text" readonly="1"/>
-                                    <field name="state" readonly="1"/>
-                                    <button name="action_send_outbound" type="object" string="Send" invisible="direction != 'outbound' or state == 'sent'"/>
+                                    <field name="translated_text" optional="hide"/>
+                                    <field name="ai_generated" optional="hide"/>
+                                    <field name="state" widget="badge"/>
                                 </list>
                             </field>
+                        </page>
+                        <page string="Provider Context" groups="chat_connect_center.group_chat_connect_manager">
+                            <group>
+                                <field name="last_reply_token" password="True"/>
+                                <field name="reply_token_expires_at"/>
+                                <field name="reply_token_used"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

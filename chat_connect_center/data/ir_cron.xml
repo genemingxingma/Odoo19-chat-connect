@@ -1,11 +1,41 @@
 <odoo noupdate="1">
+    <record id="ir_cron_chat_connect_process_inbound" model="ir.cron">
+        <field name="name">Chat Connect: Process Inbound Events</field>
+        <field name="model_id" ref="model_chat_connect_inbound_event"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_process_pending()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">minutes</field>
+        <field name="active">True</field>
+    </record>
+
     <record id="ir_cron_chat_connect_retry_failed_outbound" model="ir.cron">
-        <field name="name">Chat Connect: Retry Failed Outbound</field>
+        <field name="name">Chat Connect: Process Outbound Queue</field>
         <field name="model_id" ref="model_chat_connect_message"/>
         <field name="state">code</field>
         <field name="code">model._cron_retry_failed_outbound()</field>
-        <field name="interval_number">2</field>
+        <field name="interval_number">1</field>
         <field name="interval_type">minutes</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_chat_connect_cleanup" model="ir.cron">
+        <field name="name">Chat Connect: Cleanup Expired Data</field>
+        <field name="model_id" ref="model_chat_connect_diagnostic_log"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_cleanup_logs()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_chat_connect_cleanup_media" model="ir.cron">
+        <field name="name">Chat Connect: Cleanup Media Links</field>
+        <field name="model_id" ref="model_chat_connect_media"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_cleanup_expired()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
         <field name="active">True</field>
     </record>
 </odoo>

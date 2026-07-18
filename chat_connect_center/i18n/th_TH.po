@@ -13,6 +13,24 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "A Discuss channel can only belong to one external conversation."
+msgstr "ช่อง Discuss หนึ่งช่องเชื่อมกับการสนทนาภายนอกได้เพียงรายการเดียว"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "A triage channel cannot be used as a customer conversation."
+msgstr "ไม่สามารถใช้ช่องคัดแยกเป็นการสนทนากับลูกค้าได้"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "A webhook secret is required for generic providers."
+msgstr "ผู้ให้บริการทั่วไปต้องกำหนดรหัสลับ Webhook"
+
+#. module: chat_connect_center
 #: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
 msgid "AI Translation"
 msgstr "แปลภาษา AI"
@@ -23,8 +41,16 @@ msgid "AI translation API endpoint."
 msgstr "ปลายทาง API สำหรับแปลภาษา AI"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__access_token
+msgid "Access Token"
+msgstr "โทเค็นการเข้าถึง"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__account_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__account_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__account_id
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__account_id
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
 msgid "Account"
 msgstr "บัญชี"
 
@@ -38,6 +64,38 @@ msgstr "บัญชี"
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__active
 msgid "Active"
 msgstr "ใช้งาน"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__ai_generated
+msgid "Ai Generated"
+msgstr "สร้างโดย AI"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Archived"
+msgstr "เก็บถาวรแล้ว"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
+msgid "Archived Messages"
+msgstr "ข้อความที่เก็บถาวร"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__attachment_id
+msgid "Attachment"
+msgstr "ไฟล์แนบ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__attachment_ids
+msgid "Attachments"
+msgstr "ไฟล์แนบ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__message_type__audio
+msgid "Audio"
+msgstr "เสียง"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__auto_create_conversation
@@ -77,14 +135,65 @@ msgid "Chat Connect Conversation"
 msgstr "บทสนทนาเชื่อมต่อแชท"
 
 #. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_diagnostic_log
+msgid "Chat Connect Diagnostic Log"
+msgstr "บันทึกการวินิจฉัย Chat Connect"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_inbound_event
+msgid "Chat Connect Inbound Event"
+msgstr "เหตุการณ์ขาเข้า Chat Connect"
+
+#. module: chat_connect_center
+#: model:res.groups,name:chat_connect_center.group_chat_connect_manager
+msgid "Chat Connect Manager"
+msgstr "ผู้จัดการ Chat Connect"
+
+#. module: chat_connect_center
 #: model:ir.model,name:chat_connect_center.model_chat_connect_message
 msgid "Chat Connect Message"
 msgstr "ข้อความเชื่อมต่อแชท"
 
 #. module: chat_connect_center
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
-msgid "Close"
-msgstr "ปิด"
+#: model:res.groups,name:chat_connect_center.group_chat_connect_user
+msgid "Chat Connect Operator"
+msgstr "เจ้าหน้าที่ Chat Connect"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_chat_connect_media
+msgid "Chat Connect Temporary Media"
+msgstr "สื่อชั่วคราว Chat Connect"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_config.py:0
+msgid "Chat Connect limits and retention values must be greater than zero."
+msgstr "ค่าขีดจำกัดและระยะเวลาเก็บรักษาของ Chat Connect ต้องมากกว่าศูนย์"
+
+#. module: chat_connect_center
+#: model:ir.actions.server,name:chat_connect_center.ir_cron_chat_connect_cleanup_ir_actions_server
+msgid "Chat Connect: Cleanup Expired Data"
+msgstr "Chat Connect: ล้างข้อมูลที่หมดอายุ"
+
+#. module: chat_connect_center
+#: model:ir.actions.server,name:chat_connect_center.ir_cron_chat_connect_cleanup_media_ir_actions_server
+msgid "Chat Connect: Cleanup Media Links"
+msgstr "Chat Connect: ล้างลิงก์สื่อ"
+
+#. module: chat_connect_center
+#: model:ir.actions.server,name:chat_connect_center.ir_cron_chat_connect_process_inbound_ir_actions_server
+msgid "Chat Connect: Process Inbound Events"
+msgstr "Chat Connect: ประมวลผลเหตุการณ์ขาเข้า"
+
+#. module: chat_connect_center
+#: model:ir.actions.server,name:chat_connect_center.ir_cron_chat_connect_retry_failed_outbound_ir_actions_server
+msgid "Chat Connect: Retry Failed Outbound"
+msgstr "Chat Connect: ลองส่งข้อความขาออกที่ล้มเหลวอีกครั้ง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__chat_message_id
+msgid "Chat Message"
+msgstr "ข้อความแชต"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__state__closed
@@ -92,9 +201,68 @@ msgid "Closed"
 msgstr "ปิดแล้ว"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__company_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__company_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__company_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__company_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__company_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__company_id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__company_id
+msgid "Company"
+msgstr "บริษัท"
+
+#. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_configuration
+msgid "Configuration"
+msgstr "การกำหนดค่า"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_config_form
+msgid "Configuration notes..."
+msgstr "หมายเหตุการกำหนดค่า..."
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__connection_status__connected
+msgid "Connected"
+msgstr "เชื่อมต่อแล้ว"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__connection_status
+msgid "Connection Status"
+msgstr "สถานะการเชื่อมต่อ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Connection test failed"
+msgstr "การทดสอบการเชื่อมต่อล้มเหลว"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Connection test passed"
+msgstr "การทดสอบการเชื่อมต่อผ่าน"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Content"
+msgstr "เนื้อหา"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__conversation_id
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__conversation_id
 msgid "Conversation"
 msgstr "บทสนทนา"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__conversation_type
+msgid "Conversation Type"
+msgstr "ประเภทการสนทนา"
+
+#. module: chat_connect_center
+#: model:ir.model.constraint,message:chat_connect_center.constraint_chat_connect_conversation_conversation_unique
+msgid "Conversation must be unique per account."
+msgstr "การสนทนาต้องไม่ซ้ำกันภายในแต่ละบัญชี"
 
 #. module: chat_connect_center
 #: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_conversation
@@ -103,9 +271,26 @@ msgid "Conversations"
 msgstr "บทสนทนา"
 
 #. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid ""
+"Copy the Webhook URL into LINE Developers &gt; Messaging API &gt; Webhook "
+"URL, enable Use webhook, then verify it."
+msgstr "คัดลอก Webhook URL ไปที่ LINE Developers &gt; Messaging API &gt; Webhook URL เปิดใช้ Use webhook แล้วกดตรวจสอบ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid ""
+"Copy the Webhook URL into the WeChat Official Account server configuration. "
+"The WeChat token below must exactly match the token entered there."
+msgstr "คัดลอก Webhook URL ไปยังการตั้งค่าเซิร์ฟเวอร์บัญชีทางการ WeChat โดยโทเค็น WeChat ด้านล่างต้องตรงกับค่าที่กรอกไว้ทุกประการ"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__create_uid
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__create_uid
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__create_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__create_uid
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__create_uid
 msgid "Created by"
 msgstr "สร้างโดย"
@@ -114,14 +299,22 @@ msgstr "สร้างโดย"
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__create_date
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__create_date
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__create_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__create_date
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__create_date
 msgid "Created on"
 msgstr "สร้างเมื่อ"
 
 #. module: chat_connect_center
-#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__default_channel_id
-msgid "Default Discuss Channel"
-msgstr "ช่องสนทนาเริ่มต้น"
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Credentials"
+msgstr "ข้อมูลรับรอง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__customer_lang
+msgid "Customer Language"
+msgstr "ภาษาของลูกค้า"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_source_lang
@@ -132,6 +325,11 @@ msgstr "ภาษาต้นทางเริ่มต้น"
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_target_lang
 msgid "Default Target Lang"
 msgstr "ภาษาเป้าหมายเริ่มต้น"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_config_form
+msgid "Default Translation"
+msgstr "การแปลเริ่มต้น"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__default_translation_api_key
@@ -149,6 +347,37 @@ msgid "Default Translation Model"
 msgstr "โมเดลแปลภาษาเริ่มต้น"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__delivered_text
+msgid "Delivered Text"
+msgstr "ข้อความที่ส่งจริง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__uncertain
+msgid "Delivery Uncertain"
+msgstr "ไม่แน่ใจว่าส่งสำเร็จหรือไม่"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__chatbot_script_id
+msgid ""
+"Deprecated. Automation is resolved from the selected Livechat channel rules."
+msgstr "เลิกใช้แล้ว ระบบจะอ่านกฎอัตโนมัติจากช่อง Live Chat ที่เลือก"
+
+#. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_diagnostic_log
+msgid "Diagnostic Logs"
+msgstr "บันทึกการวินิจฉัย"
+
+#. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_diagnostic_log
+msgid "Diagnostics"
+msgstr "การวินิจฉัย"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__conversation_type__user
+msgid "Direct"
+msgstr "สนทนาโดยตรง"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__direction
 msgid "Direction"
 msgstr "ทิศทาง"
@@ -159,12 +388,27 @@ msgid "Discuss Channel"
 msgstr "ช่องสนทนา"
 
 #. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_discuss_channel
+msgid "Discussion Channel"
+msgstr "ช่องสนทนา"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__display_name
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__display_name
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__display_name
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_discuss_channel__display_name
+#: model:ir.model.fields,field_description:chat_connect_center.field_mail_message__display_name
 msgid "Display Name"
 msgstr "ชื่อที่แสดง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_inbound_event__state__done
+msgid "Done"
+msgstr "เสร็จสิ้น"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__draft
@@ -172,9 +416,56 @@ msgid "Draft"
 msgstr "ฉบับร่าง"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__endpoint
+msgid "Endpoint"
+msgstr "ปลายทาง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__connection_status__error
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_diagnostic_log__level__error
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_inbound_event_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__error_message
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__error_message
 msgid "Error Message"
 msgstr "ข้อความผิดพลาด"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Errors"
+msgstr "ข้อผิดพลาด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__event
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__message_type__event
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Event"
+msgstr "เหตุการณ์"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__event_timestamp
+msgid "Event Timestamp"
+msgstr "เวลาของเหตุการณ์"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__event_uid
+msgid "Event Uid"
+msgstr "UID เหตุการณ์"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__exception
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_form
+msgid "Exception"
+msgstr "ข้อยกเว้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__expires_at
+msgid "Expires At"
+msgstr "หมดอายุเมื่อ"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__external_access_token
@@ -192,11 +483,22 @@ msgid "External App Secret"
 msgstr "รหัสลับแอปภายนอก"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_discuss_channel__chat_connect_conversation_id
+msgid "External Chat Conversation"
+msgstr "การสนทนาแชตภายนอก"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__external_conversation_id
 msgid "External Conversation"
 msgstr "บทสนทนาภายนอก"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__external_event_id
+msgid "External Event"
+msgstr "เหตุการณ์ภายนอก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__external_message_id
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__external_message_id
 msgid "External Message"
 msgstr "ข้อความภายนอก"
@@ -212,22 +514,101 @@ msgid "External Visitor Name"
 msgstr "ชื่อผู้เยี่ยมชมภายนอก"
 
 #. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_inbound_event__state__failed
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__failed
 msgid "Failed"
 msgstr "ล้มเหลว"
 
 #. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__message_type__file
+msgid "File"
+msgstr "ไฟล์"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_config_form
+msgid "General"
+msgstr "ทั่วไป"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Generic Webhook"
+msgstr "Webhook ทั่วไป"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_config__webhook_enforce_token
+msgid ""
+"Generic webhook endpoints always require an account secret. Official "
+"providers use their signatures."
+msgstr "ปลายทาง Webhook ทั่วไปต้องใช้รหัสลับของบัญชีเสมอ ส่วนผู้ให้บริการทางการใช้ลายเซ็นของตน"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Generic webhook signature is configured."
+msgstr "กำหนดลายเซ็น Webhook ทั่วไปแล้ว"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__conversation_type__group
+msgid "Group"
+msgstr "กลุ่ม"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Group by Account"
+msgstr "จัดกลุ่มตามบัญชี"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Group by Event"
+msgstr "จัดกลุ่มตามเหตุการณ์"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Group by Level"
+msgstr "จัดกลุ่มตามระดับ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Group by Platform"
+msgstr "จัดกลุ่มตามแพลตฟอร์ม"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__http_method
+msgid "Http Method"
+msgstr "เมธอด HTTP"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__http_status
+msgid "Http Status"
+msgstr "สถานะ HTTP"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__id
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__id
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__id
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_discuss_channel__id
+#: model:ir.model.fields,field_description:chat_connect_center.field_mail_message__id
 msgid "ID"
 msgstr "รหัส"
 
 #. module: chat_connect_center
-#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_config__webhook_enforce_token
-msgid "If enabled, account webhook secrets are enforced for inbound requests."
-msgstr "หากเปิดใช้งาน จะบังคับตรวจสอบ webhook secret ของบัญชีสำหรับคำขอขาเข้า"
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__idempotency_key
+msgid "Idempotency Key"
+msgstr "คีย์ป้องกันการส่งซ้ำ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_inbound_event__state__ignored
+msgid "Ignored"
+msgstr "ละเว้น"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__message_type__image
+msgid "Image"
+msgstr "รูปภาพ"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__direction__inbound
@@ -235,14 +616,152 @@ msgid "Inbound"
 msgstr "ขาเข้า"
 
 #. module: chat_connect_center
+#: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_inbound_event
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_inbound_event
+msgid "Inbound Queue"
+msgstr "คิวขาเข้า"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_diagnostic_log__level__info
+msgid "Info"
+msgstr "ข้อมูล"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Internal operating notes..."
+msgstr "หมายเหตุการดำเนินงานภายใน..."
+
+#. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__line
 msgid "LINE"
 msgstr "LINE"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__line_channel_access_token
+msgid "LINE Channel Access Token"
+msgstr "โทเค็นการเข้าถึงช่อง LINE"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__line_channel_secret
+msgid "LINE Channel Secret"
+msgstr "รหัสลับช่อง LINE"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "LINE Messaging API"
+msgstr "LINE Messaging API"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE channel access token is not configured"
+msgstr "ยังไม่ได้กำหนดโทเค็นการเข้าถึงช่อง LINE"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE connection test failed: %s"
+msgstr "การทดสอบการเชื่อมต่อ LINE ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE media download failed: %s"
+msgstr "ดาวน์โหลดสื่อ LINE ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE media exceeds the configured size limit"
+msgstr "สื่อ LINE มีขนาดเกินขีดจำกัดที่กำหนด"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE media is still being prepared"
+msgstr "LINE ยังเตรียมสื่อไม่เสร็จ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE outbound message is empty"
+msgstr "ข้อความขาออก LINE ว่างเปล่า"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE push connection failed: %s"
+msgstr "การเชื่อมต่อ LINE Push ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE push timed out and can be retried safely"
+msgstr "LINE Push หมดเวลาและสามารถลองใหม่ได้อย่างปลอดภัย"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE reply failed; delivery is uncertain"
+msgstr "การตอบกลับ LINE ล้มเหลวและไม่แน่ใจว่าส่งถึงหรือไม่"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE reply timed out; delivery is uncertain"
+msgstr "การตอบกลับ LINE หมดเวลาและไม่แน่ใจว่าส่งถึงหรือไม่"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE send failed: %s"
+msgstr "ส่ง LINE ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "LINE temporarily rejected the message: %s"
+msgstr "LINE ปฏิเสธข้อความชั่วคราว: %s"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__last_attempt_at
+msgid "Last Attempt At"
+msgstr "ลองครั้งล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__last_error
+msgid "Last Error"
+msgstr "ข้อผิดพลาดล่าสุด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__last_error_at
+msgid "Last Error At"
+msgstr "เกิดข้อผิดพลาดล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__last_inbound_at
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__last_inbound_at
+msgid "Last Inbound At"
+msgstr "รับเข้าล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__last_outbound_at
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__last_outbound_at
+msgid "Last Outbound At"
+msgstr "ส่งออกล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__last_reply_token
+msgid "Last Reply Token"
+msgstr "โทเค็นตอบกลับล่าสุด"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__write_uid
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__write_uid
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__write_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__write_uid
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__write_uid
 msgid "Last Updated by"
 msgstr "อัปเดตล่าสุดโดย"
@@ -251,9 +770,37 @@ msgstr "อัปเดตล่าสุดโดย"
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__write_date
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__write_date
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__write_date
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__write_date
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__write_date
 msgid "Last Updated on"
 msgstr "อัปเดตล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__last_webhook_at
+msgid "Last Webhook At"
+msgstr "รับ Webhook ล่าสุดเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__chatbot_script_id
+msgid "Legacy Chatbot Script"
+msgstr "สคริปต์แชตบอตแบบเดิม"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__level
+msgid "Level"
+msgstr "ระดับ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__livechat_guest_id
+msgid "Livechat Guest"
+msgstr "ผู้เยี่ยมชม Live Chat"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__log_retention_days
+msgid "Log Retention Days"
+msgstr "จำนวนวันเก็บบันทึก"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__mail_message_id
@@ -261,10 +808,52 @@ msgid "Mail Message"
 msgstr "ข้อความใน Discuss"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__max_media_mb
+msgid "Max Media Mb"
+msgstr "ขนาดสื่อสูงสุด (MB)"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__max_retries
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__max_retries
+msgid "Max Retries"
+msgstr "จำนวนครั้งลองใหม่สูงสุด"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__max_webhook_payload_kb
+msgid "Max Webhook Payload Kb"
+msgstr "ขนาดเพย์โหลด Webhook สูงสุด (KB)"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__media_id
+msgid "Media"
+msgstr "สื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__media_link_ttl_hours
+msgid "Media Link Ttl Hours"
+msgstr "อายุลิงก์สื่อ (ชั่วโมง)"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__media_url
+msgid "Media Url"
+msgstr "URL สื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model,name:chat_connect_center.model_mail_message
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__message
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__message_id
+msgid "Message"
+msgstr "ข้อความ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__message_type
+msgid "Message Type"
+msgstr "ประเภทข้อความ"
+
+#. module: chat_connect_center
 #: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_message
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__message_ids
 #: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_message
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
 msgid "Messages"
 msgstr "ข้อความ"
 
@@ -274,6 +863,35 @@ msgstr "ข้อความ"
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__name
 msgid "Name"
 msgstr "ชื่อ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "New external conversation: %s"
+msgstr "การสนทนาภายนอกใหม่: %s"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__next_retry_at
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__next_retry_at
+msgid "Next Retry At"
+msgstr "ลองใหม่ครั้งถัดไปเมื่อ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "No active WeChat customer-service reply window is available."
+msgstr "ไม่มีช่วงเวลาตอบกลับของฝ่ายบริการลูกค้า WeChat ที่ใช้งานได้"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "No available operator or chatbot for selected Odoo Livechat Channel."
+msgstr "ไม่มีเจ้าหน้าที่หรือแชตบอตที่พร้อมใช้งานสำหรับช่อง Odoo Live Chat ที่เลือก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__connection_status__not_tested
+msgid "Not Tested"
+msgstr "ยังไม่ทดสอบ"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__note
@@ -287,14 +905,43 @@ msgid "Notes"
 msgstr "หมายเหตุ"
 
 #. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Odoo Discuss"
+msgstr "Odoo Discuss"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__livechat_channel_id
+msgid "Odoo Livechat Channel"
+msgstr "ช่อง Odoo Live Chat"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_config.py:0
+msgid "Only one active Chat Connect configuration is allowed per company."
+msgstr "แต่ละบริษัทมีการกำหนดค่า Chat Connect ที่ใช้งานได้เพียงรายการเดียว"
+
+#. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__state__open
 msgid "Open"
 msgstr "เปิด"
 
 #. module: chat_connect_center
+#: model:ir.ui.menu,name:chat_connect_center.menu_chat_connect_operations
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Operations"
+msgstr "การดำเนินงาน"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__operator_user_ids
 msgid "Operator Users"
 msgstr "ผู้ใช้ผู้ปฏิบัติงาน"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__default_channel_id
+msgid ""
+"Optional notification channel. It is never used as the outbound customer "
+"conversation."
+msgstr "ช่องแจ้งเตือนเสริมนี้จะไม่ถูกใช้เป็นการสนทนาขาออกกับลูกค้า"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__direction__outbound
@@ -307,19 +954,105 @@ msgid "Outbound Enabled"
 msgstr "เปิดใช้งานขาออก"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_media__outbound_message_id
+msgid "Outbound Message"
+msgstr "ข้อความขาออก"
+
+#. module: chat_connect_center
+#: model:ir.model.constraint,message:chat_connect_center.constraint_chat_connect_message_idempotency_key_unique
+msgid "Outbound idempotency keys must be unique."
+msgstr "คีย์ป้องกันการส่งซ้ำของข้อความขาออกต้องไม่ซ้ำกัน"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Outbound is disabled for this account"
+msgstr "บัญชีนี้ปิดใช้งานการส่งขาออก"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_message.py:0
+msgid "Outbound message has no text or attachments."
+msgstr "ข้อความขาออกไม่มีข้อความหรือไฟล์แนบ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_message.py:0
+msgid "Outbound message sent successfully."
+msgstr "ส่งข้อความขาออกสำเร็จ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Outbound sending is not implemented for platform: %s"
+msgstr "ยังไม่รองรับการส่งขาออกสำหรับแพลตฟอร์ม: %s"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__payload_json
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__payload_json
 msgid "Payload Json"
 msgstr "Payload JSON"
 
 #. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_inbound_event__state__permanent_failed
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__permanent_failed
+msgid "Permanent Failure"
+msgstr "ล้มเหลวถาวร"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__platform
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__platform
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__platform
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
 msgid "Platform"
 msgstr "แพลตฟอร์ม"
 
 #. module: chat_connect_center
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
-msgid "Platform Credentials"
-msgstr "ข้อมูลรับรองแพลตฟอร์ม"
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__processed_at
+msgid "Processed At"
+msgstr "ประมวลผลเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_inbound_event__state__processing
+msgid "Processing"
+msgstr "กำลังประมวลผล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__processing_started_at
+msgid "Processing Started At"
+msgstr "เริ่มประมวลผลเมื่อ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
+msgid "Provider Context"
+msgstr "บริบทผู้ให้บริการ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__provider_http_status
+msgid "Provider Http Status"
+msgstr "สถานะ HTTP ของผู้ให้บริการ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__provider_request_id
+msgid "Provider Request"
+msgstr "คำขอผู้ให้บริการ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Provider Result"
+msgstr "ผลลัพธ์จากผู้ให้บริการ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_inbound_event__state__queued
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__queued
+msgid "Queued"
+msgstr "เข้าคิวแล้ว"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_inbound_event_form
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Raw Payload"
+msgstr "เพย์โหลดดิบ"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__received
@@ -327,22 +1060,96 @@ msgid "Received"
 msgstr "รับแล้ว"
 
 #. module: chat_connect_center
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_tree
-msgid "Reset"
-msgstr "รีเซ็ต"
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__remote_ip
+msgid "Remote Ip"
+msgstr "IP ระยะไกล"
 
 #. module: chat_connect_center
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_conversation_form
-#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__reply_token_expires_at
+msgid "Reply Token Expires At"
+msgstr "โทเค็นตอบกลับหมดอายุเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__reply_token_used
+msgid "Reply Token Used"
+msgstr "ใช้โทเค็นตอบกลับแล้ว"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_form
+msgid "Request"
+msgstr "คำขอ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__request_headers
+msgid "Request Headers"
+msgstr "ส่วนหัวคำขอ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__request_payload
+msgid "Request Payload"
+msgstr "เพย์โหลดคำขอ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_form
+msgid "Response"
+msgstr "การตอบกลับ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__response_payload
+msgid "Response Payload"
+msgstr "เพย์โหลดการตอบกลับ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_inbound_event_list
 #: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_tree
-msgid "Send"
-msgstr "ส่ง"
+msgid "Retry"
+msgstr "ลองใหม่"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__retry_count
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__retry_count
+msgid "Retry Count"
+msgstr "จำนวนครั้งที่ลองใหม่"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_message_form
+msgid "Retry Delivery"
+msgstr "ลองส่งอีกครั้ง"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_inbound_event_form
+msgid "Retry Processing"
+msgstr "ลองประมวลผลอีกครั้ง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_conversation__conversation_type__room
+msgid "Room"
+msgstr "ห้อง"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_config_form
+msgid "Safety and Retention"
+msgstr "ความปลอดภัยและการเก็บรักษา"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__sending
+msgid "Sending"
+msgstr "กำลังส่ง"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__sending_started_at
+msgid "Sending Started At"
+msgstr "เริ่มส่งเมื่อ"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__state__sent
 msgid "Sent"
 msgstr "ส่งแล้ว"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__sent_at
+msgid "Sent At"
+msgstr "ส่งเมื่อ"
 
 #. module: chat_connect_center
 #: model:ir.actions.act_window,name:chat_connect_center.action_chat_connect_config
@@ -352,8 +1159,8 @@ msgstr "การตั้งค่า"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__webhook_secret
-msgid "Shared secret validated from request header X-Chat-Token."
-msgstr "รหัสลับร่วมสำหรับตรวจสอบจากส่วนหัว X-Chat-Token"
+msgid "Shared secret required by generic webhook endpoints."
+msgstr "รหัสลับร่วมที่ปลายทาง Webhook ทั่วไปต้องใช้"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__source_lang
@@ -362,6 +1169,7 @@ msgstr "ภาษาต้นทาง"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__state
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_inbound_event__state
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__state
 msgid "State"
 msgstr "สถานะ"
@@ -372,14 +1180,84 @@ msgid "Target Lang"
 msgstr "ภาษาเป้าหมาย"
 
 #. module: chat_connect_center
+#: model:ir.model.constraint,message:chat_connect_center.constraint_chat_connect_media_access_token_unique
+msgid "Temporary media access tokens must be unique."
+msgstr "โทเค็นเข้าถึงสื่อชั่วคราวต้องไม่ซ้ำกัน"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Test Connection"
+msgstr "ทดสอบการเชื่อมต่อ"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Test Translation"
+msgstr "ทดสอบการแปล"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__text
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__message_type__text
 msgid "Text"
 msgstr "ข้อความ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "The WeChat customer-service message quota is exhausted."
+msgstr "โควตาข้อความฝ่ายบริการลูกค้า WeChat หมดแล้ว"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "The WeChat customer-service reply window has expired."
+msgstr "ช่วงเวลาตอบกลับของฝ่ายบริการลูกค้า WeChat หมดอายุแล้ว"
+
+#. module: chat_connect_center
+#: model:ir.model.constraint,message:chat_connect_center.constraint_chat_connect_message_inbound_event_unique
+msgid "The provider event has already been archived for this account."
+msgstr "เหตุการณ์จากผู้ให้บริการนี้ถูกเก็บถาวรสำหรับบัญชีนี้แล้ว"
+
+#. module: chat_connect_center
+#: model:ir.model.constraint,message:chat_connect_center.constraint_chat_connect_inbound_event_event_unique
+msgid "The provider event has already been received for this account."
+msgstr "บัญชีนี้ได้รับเหตุการณ์จากผู้ให้บริการนี้แล้ว"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid ""
+"The triage channel receives notifications only. Every external visitor gets "
+"a separate Discuss channel."
+msgstr "ช่องคัดแยกรับเฉพาะการแจ้งเตือน ผู้เยี่ยมชมภายนอกแต่ละรายจะมีช่อง Discuss แยกกัน"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid ""
+"This platform currently supports authenticated generic inbound webhooks "
+"only. Provider-specific outbound delivery is not enabled."
+msgstr "ขณะนี้แพลตฟอร์มนี้รองรับเฉพาะ Webhook ขาเข้าทั่วไปที่ยืนยันตัวตนแล้ว และยังไม่เปิดใช้การส่งขาออกเฉพาะผู้ให้บริการ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__outbound_translation_enabled
+msgid "Translate Outbound Messages"
+msgstr "แปลข้อความขาออก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,help:chat_connect_center.field_chat_connect_account__outbound_translation_enabled
+msgid ""
+"Translate operator replies to the detected customer language before provider"
+" delivery."
+msgstr "แปลคำตอบของเจ้าหน้าที่เป็นภาษาของลูกค้าที่ตรวจพบก่อนส่งผ่านผู้ให้บริการ"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_message__translated_text
 msgid "Translated Text"
 msgstr "ข้อความที่แปล"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_conversation.py:0
+msgid "Translation"
+msgstr "คำแปล"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__translation_api_key
@@ -402,9 +1280,85 @@ msgid "Translation Model"
 msgstr "โมเดลการแปล"
 
 #. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Translation returned no text. Check the endpoint and diagnostic log."
+msgstr "การแปลไม่ส่งข้อความกลับมา โปรดตรวจสอบปลายทางและบันทึกการวินิจฉัย"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Translation test"
+msgstr "ทดสอบการแปล"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__default_channel_id
+msgid "Triage Notification Channel"
+msgstr "ช่องแจ้งเตือนคัดแยก"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__wechat_use_stable_token
+msgid "Use WeChat Stable Token"
+msgstr "ใช้โทเค็นแบบเสถียรของ WeChat"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_message__message_type__video
+msgid "Video"
+msgstr "วิดีโอ"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "Visitor"
+msgstr "ผู้เยี่ยมชม"
+
+#. module: chat_connect_center
+#: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_diagnostic_log__level__warning
+msgid "Warning"
+msgstr "คำเตือน"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Warnings"
+msgstr "คำเตือน"
+
+#. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wechat
 msgid "WeChat"
 msgstr "WeChat"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat API request failed: %s"
+msgstr "คำขอ WeChat API ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat AppID mismatch in encrypted payload"
+msgstr "AppID ของ WeChat ในเพย์โหลดเข้ารหัสไม่ตรงกัน"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__wechat_encoding_aes_key
+msgid "WeChat EncodingAESKey"
+msgstr "EncodingAESKey ของ WeChat"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat EncodingAESKey is invalid"
+msgstr "EncodingAESKey ของ WeChat ไม่ถูกต้อง"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "WeChat Official Account"
+msgstr "บัญชีทางการ WeChat"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__wechat_safe_mode_enabled
+msgid "WeChat Safe Mode"
+msgstr "โหมดปลอดภัย WeChat"
 
 #. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wechat_service
@@ -412,9 +1366,97 @@ msgid "WeChat Service Account"
 msgstr "บัญชีบริการ WeChat"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__wechat_token
+msgid "WeChat Verify Token"
+msgstr "โทเค็นตรวจสอบ WeChat"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat access token request failed: %s"
+msgstr "ขอโทเค็นการเข้าถึง WeChat ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat app id/secret is not configured"
+msgstr "ยังไม่ได้กำหนด AppID/รหัสลับของ WeChat"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat connection failed: %s"
+msgstr "การเชื่อมต่อ WeChat ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat encrypted message is invalid"
+msgstr "ข้อความเข้ารหัสของ WeChat ไม่ถูกต้อง"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat media download failed: %s"
+msgstr "ดาวน์โหลดสื่อ WeChat ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat media exceeds the configured size limit"
+msgstr "สื่อ WeChat มีขนาดเกินขีดจำกัดที่กำหนด"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat media upload failed: %s"
+msgstr "อัปโหลดสื่อ WeChat ล้มเหลว: %s"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat media upload returned no media id"
+msgstr "การอัปโหลดสื่อ WeChat ไม่ส่ง Media ID กลับมา"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat media upload timed out"
+msgstr "อัปโหลดสื่อ WeChat หมดเวลา"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat outbound message is empty"
+msgstr "ข้อความขาออก WeChat ว่างเปล่า"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat recipient openid is empty"
+msgstr "openid ของผู้รับ WeChat ว่างเปล่า"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat request timed out; delivery is uncertain"
+msgstr "คำขอ WeChat หมดเวลาและไม่แน่ใจว่าส่งถึงหรือไม่"
+
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "WeChat temporarily rejected the request: %s"
+msgstr "WeChat ปฏิเสธคำขอชั่วคราว: %s"
+
+#. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__wecom
-msgid "WeCom (Enterprise WeChat)"
-msgstr "WeCom (WeChat องค์กร)"
+msgid "WeCom (Generic Webhook)"
+msgstr "WeCom (Webhook ทั่วไป)"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "Webhook"
+msgstr "Webhook"
 
 #. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_config__webhook_enforce_token
@@ -427,47 +1469,63 @@ msgid "Webhook Secret"
 msgstr "รหัสลับ Webhook"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_send_url
+msgid "Webhook Send URL"
+msgstr "URL ส่ง Webhook"
+
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_diagnostic_log_search
+msgid "Webhook UID"
+msgstr "UID ของ Webhook"
+
+#. module: chat_connect_center
+#: model:ir.model.constraint,message:chat_connect_center.constraint_chat_connect_account_webhook_uid_unique
+msgid "Webhook UID must be unique."
+msgstr "UID ของ Webhook ต้องไม่ซ้ำกัน"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_url
+msgid "Webhook URL"
+msgstr "URL ของ Webhook"
+
+#. module: chat_connect_center
 #: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__webhook_uid
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_diagnostic_log__webhook_uid
 msgid "Webhook Uid"
 msgstr "รหัส Webhook"
 
 #. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_account__wechat_access_token_expires_at
+msgid "Wechat Access Token Expires At"
+msgstr "โทเค็นการเข้าถึง WeChat หมดอายุเมื่อ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__wechat_outbound_quota_remaining
+msgid "Wechat Outbound Quota Remaining"
+msgstr "โควตาขาออก WeChat ที่เหลือ"
+
+#. module: chat_connect_center
+#: model:ir.model.fields,field_description:chat_connect_center.field_chat_connect_conversation__wechat_outbound_window_expires_at
+msgid "Wechat Outbound Window Expires At"
+msgstr "ช่วงเวลาส่งออก WeChat หมดอายุเมื่อ"
+
+#. module: chat_connect_center
 #: model:ir.model.fields.selection,name:chat_connect_center.selection__chat_connect_account__platform__whatsapp
-msgid "WhatsApp"
-msgstr "WhatsApp"
+msgid "WhatsApp (Generic Webhook)"
+msgstr "WhatsApp (Webhook ทั่วไป)"
 
-#~ msgid "Chat Connect Center"
-#~ msgstr "ศูนย์เชื่อมต่อแชท"
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "e.g. iMyTest LINE"
+msgstr "เช่น iMyTest LINE"
 
-#~ msgid "Unified chat bridge for WeChat/LINE/WhatsApp to Odoo Discuss"
-#~ msgstr "ศูนย์กลางเชื่อมต่อ WeChat/LINE/WhatsApp เข้าสู่ Odoo Discuss"
+#. module: chat_connect_center
+#: model_terms:ir.ui.view,arch_db:chat_connect_center.view_chat_connect_account_form
+msgid "https://api.example.com/v1/chat/completions"
+msgstr "https://api.example.com/v1/chat/completions"
 
-#~ msgid "Default Configuration"
-#~ msgstr "การตั้งค่าเริ่มต้น"
-
-#~ msgid "Webhook UID must be unique."
-#~ msgstr "Webhook UID ต้องไม่ซ้ำ"
-
-#~ msgid "Conversation must be unique per account."
-#~ msgstr "บทสนทนาต้องไม่ซ้ำภายในแต่ละบัญชี"
-
-#~ msgid "Text is empty"
-#~ msgstr "ข้อความว่าง"
-
-#~ msgid "Outbound is disabled for this account"
-#~ msgstr "บัญชีนี้ปิดการส่งขาออก"
-
-#~ msgid "Translated"
-#~ msgstr "แปลแล้ว"
-
-#~ msgid "External Conversation Id"
-#~ msgstr "รหัสบทสนทนาภายนอก"
-
-#~ msgid "External Visitor Id"
-#~ msgstr "รหัสผู้เยี่ยมชมภายนอก"
-
-#~ msgid "Message"
-#~ msgstr "ข้อความ"
-
-#~ msgid "External Message Id"
-#~ msgstr "รหัสข้อความภายนอก"
+#. module: chat_connect_center
+#. odoo-python
+#: code:addons/chat_connect_center/models/chat_connect_account.py:0
+msgid "pycryptodome is required for WeChat safe mode"
+msgstr "โหมดปลอดภัย WeChat ต้องใช้ pycryptodome"

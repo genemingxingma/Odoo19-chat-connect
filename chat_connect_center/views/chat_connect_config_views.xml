@@ -5,12 +5,13 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
                 <field name="active"/>
                 <field name="default_source_lang"/>
                 <field name="default_target_lang"/>
                 <field name="default_translation_model"/>
-                <field name="auto_create_conversation"/>
-                <field name="webhook_enforce_token"/>
+                <field name="max_webhook_payload_kb" optional="hide"/>
+                <field name="max_media_mb" optional="hide"/>
             </list>
         </field>
     </record>
@@ -21,14 +22,18 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name"/></h1>
+                    </div>
                     <group>
-                        <group>
-                            <field name="name"/>
+                        <group string="General">
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="active"/>
                             <field name="auto_create_conversation"/>
                             <field name="webhook_enforce_token"/>
                         </group>
-                        <group>
+                        <group string="Default Translation">
                             <field name="default_source_lang"/>
                             <field name="default_target_lang"/>
                             <field name="default_translation_endpoint"/>
@@ -36,8 +41,14 @@
                             <field name="default_translation_model"/>
                         </group>
                     </group>
+                    <group string="Safety and Retention">
+                        <field name="max_webhook_payload_kb"/>
+                        <field name="max_media_mb"/>
+                        <field name="media_link_ttl_hours"/>
+                        <field name="log_retention_days"/>
+                    </group>
                     <group>
-                        <field name="note"/>
+                        <field name="note" placeholder="Configuration notes..."/>
                     </group>
                 </sheet>
             </form>

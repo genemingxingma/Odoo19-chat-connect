@@ -9,6 +9,7 @@
                 <field name="event"/>
                 <field name="platform"/>
                 <field name="account_id"/>
+                <field name="company_id" optional="hide" groups="base.group_multi_company"/>
                 <field name="http_status"/>
                 <field name="message"/>
             </list>
@@ -50,6 +51,7 @@
                             <field name="platform"/>
                             <field name="webhook_uid"/>
                             <field name="account_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="conversation_id"/>
                             <field name="chat_message_id"/>
                         </group>

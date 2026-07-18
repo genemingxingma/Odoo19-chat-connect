@@ -1,15 +1,19 @@
 <odoo>
     <record id="view_chat_connect_account_tree" model="ir.ui.view">
-        <field name="name">chat.connect.account.tree</field>
+        <field name="name">chat.connect.account.list</field>
         <field name="model">chat.connect.account</field>
         <field name="arch" type="xml">
-            <list>
+            <list decoration-success="connection_status == 'connected'" decoration-danger="connection_status == 'error'">
                 <field name="name"/>
+                <field name="company_id" groups="base.group_multi_company"/>
                 <field name="platform"/>
+                <field name="connection_status" widget="badge"/>
+                <field name="last_webhook_at" optional="show"/>
+                <field name="last_inbound_at" optional="show"/>
+                <field name="last_outbound_at" optional="hide"/>
+                <field name="translation_enabled" optional="hide"/>
+                <field name="outbound_enabled" optional="show"/>
                 <field name="active"/>
-                <field name="translation_enabled"/>
-                <field name="outbound_enabled"/>
-                <field name="webhook_uid"/>
             </list>
         </field>
     </record>
@@ -19,55 +23,99 @@
         <field name="model">chat.connect.account</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary" groups="chat_connect_center.group_chat_connect_manager"/>
+                    <button name="action_test_translation" type="object" string="Test Translation" invisible="not translation_enabled" groups="chat_connect_center.group_chat_connect_manager"/>
+                    <field name="connection_status" widget="statusbar" statusbar_visible="not_tested,connected,error"/>
+                </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. iMyTest LINE"/></h1>
+                    </div>
                     <group>
                         <group>
-                            <field name="name"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="platform"/>
-                            <field name="active"/>
-                            <field name="operator_user_ids" widget="many2many_tags"/>
-                        </group>
-                        <group>
-                            <field name="webhook_uid" readonly="1"/>
-                            <field name="webhook_url" readonly="1" widget="CopyClipboardChar"/>
-                            <field name="webhook_send_url" readonly="1" widget="CopyClipboardChar"/>
-                            <field name="default_channel_id"/>
+                            <field name="active" invisible="1"/>
+                            <field name="operator_user_ids" widget="many2many_tags" options="{'no_create': True}"/>
                             <field name="outbound_enabled"/>
+                        </group>
+                        <group string="Odoo Discuss">
+                            <field name="livechat_channel_id" options="{'no_create': True}"/>
+                            <field name="default_channel_id" options="{'no_create': True}"/>
+                            <div class="text-muted" colspan="2">The triage channel receives notifications only. Every external visitor gets a separate Discuss channel.</div>
                         </group>
                     </group>
                     <notebook>
-                        <page string="Platform Credentials">
+                        <page string="Webhook">
                             <group>
-                                <field name="external_app_id"/>
-                                <field name="external_app_secret" password="True"/>
-                                <field name="external_access_token" password="True"/>
-                                <field name="webhook_secret"/>
-                                <field name="livechat_channel_id"/>
-                                <field name="chatbot_script_id" invisible="not livechat_channel_id"/>
+                                <field name="webhook_url" readonly="1" widget="CopyClipboardChar"/>
+                                <field name="webhook_send_url" readonly="1" widget="CopyClipboardChar"/>
+                                <field name="webhook_uid" readonly="1"/>
                             </group>
-                            <group string="LINE" invisible="platform != 'line'">
+                            <div class="alert alert-info" role="alert" invisible="platform != 'line'">
+                                Copy the Webhook URL into LINE Developers &gt; Messaging API &gt; Webhook URL, enable Use webhook, then verify it.
+                            </div>
+                            <div class="alert alert-info" role="alert" invisible="platform not in ('wechat', 'wechat_service')">
+                                Copy the Webhook URL into the WeChat Official Account server configuration. The WeChat token below must exactly match the token entered there.
+                            </div>
+                        </page>
+                        <page string="Credentials">
+                            <group string="LINE Messaging API" invisible="platform != 'line'">
                                 <field name="line_channel_secret" password="True"/>
                                 <field name="line_channel_access_token" password="True"/>
                             </group>
                             <group string="WeChat Official Account" invisible="platform not in ('wechat', 'wechat_service')">
-                                <field name="wechat_token"/>
+                                <field name="external_app_id"/>
+                                <field name="external_app_secret" password="True"/>
+                                <field name="wechat_token" password="True"/>
                                 <field name="wechat_safe_mode_enabled"/>
                                 <field name="wechat_encoding_aes_key" password="True" invisible="not wechat_safe_mode_enabled"/>
+                                <field name="wechat_use_stable_token"/>
                                 <field name="wechat_access_token_expires_at" readonly="1"/>
                             </group>
+                            <group string="Generic Webhook" invisible="platform in ('line', 'wechat', 'wechat_service')">
+                                <field name="webhook_secret" password="True"/>
+                                <field name="external_app_id"/>
+                                <field name="external_app_secret" password="True"/>
+                                <field name="external_access_token" password="True"/>
+                            </group>
+                            <div class="alert alert-warning" role="alert" invisible="platform in ('line', 'wechat', 'wechat_service')">
+                                This platform currently supports authenticated generic inbound webhooks only. Provider-specific outbound delivery is not enabled.
+                            </div>
                         </page>
                         <page string="AI Translation">
                             <group>
-                                <field name="translation_enabled"/>
-                                <field name="source_lang" invisible="not translation_enabled"/>
-                                <field name="target_lang" invisible="not translation_enabled"/>
-                                <field name="translation_endpoint" invisible="not translation_enabled"/>
-                                <field name="translation_api_key" password="True" invisible="not translation_enabled"/>
-                                <field name="translation_model" invisible="not translation_enabled"/>
+                                <group>
+                                    <field name="translation_enabled"/>
+                                    <field name="outbound_translation_enabled" invisible="not translation_enabled"/>
+                                    <field name="source_lang" invisible="not translation_enabled"/>
+                                    <field name="target_lang" invisible="not translation_enabled"/>
+                                </group>
+                                <group>
+                                    <field name="translation_endpoint" invisible="not translation_enabled" placeholder="https://api.example.com/v1/chat/completions"/>
+                                    <field name="translation_api_key" password="True" invisible="not translation_enabled"/>
+                                    <field name="translation_model" invisible="not translation_enabled"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Operations">
+                            <group>
+                                <group>
+                                    <field name="last_webhook_at" readonly="1"/>
+                                    <field name="last_inbound_at" readonly="1"/>
+                                    <field name="last_outbound_at" readonly="1"/>
+                                </group>
+                                <group>
+                                    <field name="last_error_at" readonly="1"/>
+                                    <field name="last_error" readonly="1"/>
+                                </group>
                             </group>
                         </page>
                         <page string="Notes">
-                            <field name="notes"/>
+                            <field name="notes" placeholder="Internal operating notes..."/>
                         </page>
                     </notebook>
                 </sheet>
@@ -79,5 +127,6 @@
         <field name="name">Chat Accounts</field>
         <field name="res_model">chat.connect.account</field>
         <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
     </record>
 </odoo>

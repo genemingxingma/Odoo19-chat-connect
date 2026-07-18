@@ -1,19 +1,21 @@
 <odoo>
     <record id="view_chat_connect_message_tree" model="ir.ui.view">
-        <field name="name">chat.connect.message.tree</field>
+        <field name="name">chat.connect.message.list</field>
         <field name="model">chat.connect.message</field>
         <field name="arch" type="xml">
-            <list>
+            <list create="false" delete="false" edit="false" decoration-danger="state in ('permanent_failed', 'uncertain')" decoration-warning="state == 'failed'" decoration-success="state in ('sent', 'received')">
+                <field name="create_date"/>
                 <field name="conversation_id"/>
-                <field name="account_id"/>
-                <field name="direction"/>
+                <field name="account_id" optional="show"/>
+                <field name="direction" widget="badge"/>
                 <field name="message_type"/>
                 <field name="text"/>
-                <field name="state"/>
-                <field name="retry_count"/>
-                <field name="external_message_id"/>
-                <button name="action_send_outbound" type="object" string="Send" invisible="direction != 'outbound' or state == 'sent'"/>
-                <button name="action_reset_draft" type="object" string="Reset" invisible="state != 'failed'"/>
+                <field name="ai_generated" optional="show"/>
+                <field name="state" widget="badge"/>
+                <field name="retry_count" optional="hide"/>
+                <field name="sent_at" optional="hide"/>
+                <field name="external_message_id" optional="hide"/>
+                <button name="action_retry_manual" type="object" string="Retry" icon="fa-repeat" invisible="direction != 'outbound' or state not in ('failed', 'permanent_failed', 'uncertain')" groups="chat_connect_center.group_chat_connect_manager"/>
             </list>
         </field>
     </record>
@@ -22,38 +24,54 @@
         <field name="name">chat.connect.message.form</field>
         <field name="model">chat.connect.message</field>
         <field name="arch" type="xml">
-            <form>
+            <form create="false" delete="false" edit="false">
+                <header>
+                    <button name="action_retry_manual" type="object" string="Retry Delivery" class="btn-primary" invisible="direction != 'outbound' or state in ('sent', 'received', 'sending')" groups="chat_connect_center.group_chat_connect_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="queued,sending,received,sent,failed,permanent_failed,uncertain"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="conversation_id"/>
-                            <field name="account_id" readonly="1"/>
+                            <field name="account_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
                             <field name="direction"/>
                             <field name="message_type"/>
-                            <field name="state"/>
-                            <field name="retry_count"/>
-                            <field name="max_retries"/>
-                            <field name="next_retry_at" readonly="1"/>
+                            <field name="ai_generated"/>
                         </group>
                         <group>
-                            <field name="external_message_id" readonly="1"/>
-                            <field name="mail_message_id" readonly="1"/>
-                            <field name="media_id" readonly="1"/>
+                            <field name="create_date"/>
+                            <field name="last_attempt_at"/>
+                            <field name="sent_at"/>
+                            <field name="retry_count"/>
+                            <field name="max_retries"/>
+                            <field name="next_retry_at"/>
+                        </group>
+                    </group>
+                    <group string="Content">
+                        <field name="text"/>
+                        <field name="translated_text"/>
+                        <field name="delivered_text"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                    <group string="Provider Result">
+                        <group>
+                            <field name="external_event_id"/>
+                            <field name="external_message_id"/>
+                            <field name="provider_request_id"/>
+                            <field name="provider_http_status"/>
+                        </group>
+                        <group>
+                            <field name="mail_message_id"/>
+                            <field name="media_id"/>
                             <field name="media_url"/>
                         </group>
                     </group>
-                    <group>
-                        <field name="text"/>
-                        <field name="translated_text" readonly="1"/>
-                        <field name="payload_json" readonly="1"/>
-                        <field name="error_message" readonly="1"/>
-                    </group>
+                    <notebook groups="chat_connect_center.group_chat_connect_manager">
+                        <page string="Raw Payload"><field name="payload_json"/></page>
+                        <page string="Error"><field name="error_message"/></page>
+                    </notebook>
                 </sheet>
-                <footer>
-                    <button name="action_send_outbound" type="object" string="Send" class="btn-primary" invisible="direction != 'outbound' or state == 'sent'"/>
-                    <button name="action_reset_draft" type="object" string="Reset" invisible="state != 'failed'"/>
-                    <button string="Close" class="btn-secondary" special="cancel"/>
-                </footer>
             </form>
         </field>
     </record>

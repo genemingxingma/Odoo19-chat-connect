@@ -5,7 +5,8 @@ from odoo.tools.mail import html2plaintext
 class MailMessage(models.Model):
     _inherit = "mail.message"
 
-    def _chat_connect_all_ai_prefixes(self):
+    @staticmethod
+    def _chat_connect_all_ai_prefixes():
         return (
             "[AI Auto-Reply]",
             "[AI自动回复]",
@@ -21,7 +22,7 @@ class MailMessage(models.Model):
 
     def _chat_connect_ai_author_partners(self, conversation):
         channel = conversation.mail_channel_id
-        ai_agent = getattr(channel, "ai_agent_id", False) if channel else False
+        ai_agent = getattr(channel.sudo(), "ai_agent_id", False) if channel else False
         partners = self.env["res.partner"]
         if not ai_agent:
             return partners
@@ -32,15 +33,9 @@ class MailMessage(models.Model):
         return partners
 
     def _chat_connect_ai_prefix(self, conversation):
-        channel = conversation.mail_channel_id
-        lang_code = ""
-        if channel and getattr(channel, "livechat_lang_id", False):
-            lang_code = (channel.livechat_lang_id.code or "").lower()
+        lang_code = (conversation.customer_lang or "").lower()
         if not lang_code:
-            lang_code = (conversation.account_id.target_lang or "").lower()
-        if not lang_code:
-            lang_code = (self.env.lang or "en_US").lower()
-
+            lang_code = (conversation.account_id.source_lang or "").lower()
         if lang_code.startswith("zh"):
             return "[AI自动回复]"
         if lang_code.startswith("th"):
@@ -65,46 +60,74 @@ class MailMessage(models.Model):
         return any(text.startswith(prefix) for prefix in self._chat_connect_all_ai_prefixes())
 
     def _chat_connect_is_ai_generated(self, conversation, message):
-        """Only mark AI when the author can be positively identified."""
-        channel = conversation.mail_channel_id
-        if not channel or channel.channel_type != "livechat":
-            return False
-        if not getattr(channel, "ai_agent_id", False):
-            return False
         author = message.author_id
         if not author:
             return False
-        ai_partners = self._chat_connect_ai_author_partners(conversation)
-        return bool(ai_partners and author in ai_partners)
+        partners = self._chat_connect_ai_author_partners(conversation)
+        return bool(partners and author in partners)
+
+    def _chat_connect_is_chatbot_generated(self, channel, message):
+        if not message.author_id or channel.channel_type != "livechat":
+            return False
+        bot_partners = channel.sudo().channel_member_ids.filtered(
+            lambda member: member.livechat_member_type == "bot"
+        ).partner_id
+        return message.author_id in bot_partners
+
+    def _chat_connect_author_can_send(self, conversation, message):
+        channel = conversation.mail_channel_id.sudo()
+        if not message.author_id or getattr(message, "author_guest_id", False):
+            return False
+        if self._chat_connect_is_ai_generated(conversation, message):
+            return True
+        if self._chat_connect_is_chatbot_generated(channel, message):
+            return True
+        internal_users = message.author_id.user_ids.filtered(lambda user: user._is_internal())
+        if not internal_users:
+            return False
+        return message.author_id in channel.channel_member_ids.partner_id
 
     @api.model_create_multi
     def create(self, vals_list):
         messages = super().create(vals_list)
         if self.env.context.get("chat_connect_skip_outbound_sync"):
             return messages
-
-        conversation_model = self.env["chat.connect.conversation"].sudo()
         outbound_model = self.env["chat.connect.message"].sudo()
-
         for message in messages:
             if message.model != "discuss.channel" or message.message_type != "comment" or not message.res_id:
                 continue
-            conversation = conversation_model.search([("mail_channel_id", "=", message.res_id)], limit=1)
-            if not conversation or not conversation.account_id.outbound_enabled:
+            channel = self.env["discuss.channel"].sudo().browse(message.res_id).exists()
+            conversation = channel.chat_connect_conversation_id if channel else False
+            if not conversation or conversation.mail_channel_id != channel:
                 continue
-
+            account = conversation.account_id
+            if channel == account.default_channel_id or not account.outbound_enabled:
+                continue
+            if not self._chat_connect_author_can_send(conversation, message):
+                continue
+            if outbound_model.search_count([("mail_message_id", "=", message.id)]):
+                continue
             text = (html2plaintext(message.body or "") or "").strip()
-            if not text:
+            attachments = message.attachment_ids
+            if not text and not attachments:
                 continue
             ai_generated = self._chat_connect_is_ai_generated(conversation, message)
             if ai_generated and not self._chat_connect_has_ai_prefix(text):
-                text = f"{self._chat_connect_ai_prefix(conversation)} {text}"
-
-            outbound = outbound_model.create(
+                text = f"{self._chat_connect_ai_prefix(conversation)} {text}".strip()
+            message_type = "text"
+            if attachments and not text:
+                message_type = "image" if all(
+                    attachment.mimetype in ("image/jpeg", "image/png") for attachment in attachments
+                ) else "file"
+            outbound_model.create(
                 {
                     "conversation_id": conversation.id,
                     "direction": "outbound",
+                    "message_type": message_type,
                     "text": text,
+                    "mail_message_id": message.id,
+                    "attachment_ids": [(6, 0, attachments.ids)],
+                    "ai_generated": ai_generated,
                     "payload_json": {
                         "source": "discuss_reply",
                         "mail_message_id": message.id,
@@ -112,5 +135,4 @@ class MailMessage(models.Model):
                     },
                 }
             )
-            outbound.action_send_outbound()
         return messages
