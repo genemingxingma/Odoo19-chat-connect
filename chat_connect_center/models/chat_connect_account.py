@@ -594,6 +594,24 @@ class ChatConnectAccount(models.Model):
         generated = hashlib.sha1("".join(values).encode("utf-8")).hexdigest()
         return hmac.compare_digest(generated, (msg_signature or "").strip())
 
+    def _wechat_verify_callback_signature(
+        self,
+        signature=None,
+        msg_signature=None,
+        timestamp=None,
+        nonce=None,
+        encrypt_text=None,
+    ):
+        self.ensure_one()
+        if self.wechat_safe_mode_enabled:
+            return bool(
+                encrypt_text
+                and self._wechat_verify_msg_signature(
+                    msg_signature, timestamp, nonce, encrypt_text
+                )
+            )
+        return self._wechat_verify_signature(signature, timestamp, nonce)
+
     def _wechat_decrypt_message(self, encrypt_text):
         self.ensure_one()
         aes_key = (self.wechat_encoding_aes_key or "").strip()

@@ -178,19 +178,23 @@ class ChatConnectWebhookController(http.Controller):
             nonce = args.get("nonce")
             echostr = args.get("echostr") or ""
             msg_signature = args.get("msg_signature")
-            if account.wechat_safe_mode_enabled and msg_signature:
-                valid = account._wechat_verify_msg_signature(msg_signature, timestamp, nonce, echostr)
-                if valid:
-                    try:
-                        challenge = account._wechat_decrypt_message(echostr)
-                    except Exception as err:
-                        self._log_diag("wechat.verify.decrypt_failed", "error", account, exception=err, http_status=400)
-                        return self._text("invalid encrypted challenge", status=400)
-                    return self._text(challenge)
-            elif account._wechat_verify_signature(args.get("signature"), timestamp, nonce):
+            if not account._wechat_verify_callback_signature(
+                signature=args.get("signature"),
+                msg_signature=msg_signature,
+                timestamp=timestamp,
+                nonce=nonce,
+                encrypt_text=echostr,
+            ):
+                self._log_diag("wechat.verify.invalid_signature", "warning", account, http_status=401)
+                return self._text("invalid signature", status=401)
+            if not account.wechat_safe_mode_enabled:
                 return self._text(echostr)
-            self._log_diag("wechat.verify.invalid_signature", "warning", account, http_status=401)
-            return self._text("invalid signature", status=401)
+            try:
+                challenge = account._wechat_decrypt_message(echostr)
+            except Exception as err:
+                self._log_diag("wechat.verify.decrypt_failed", "error", account, exception=err, http_status=400)
+                return self._text("invalid encrypted challenge", status=400)
+            return self._text(challenge)
 
         raw_body, error_response = self._raw_body(account)
         if error_response is not None:
@@ -237,7 +241,11 @@ class ChatConnectWebhookController(http.Controller):
             args = request.httprequest.args
             timestamp = args.get("timestamp")
             nonce = args.get("nonce")
-            if not account._wechat_verify_signature(args.get("signature"), timestamp, nonce):
+            if not account.wechat_safe_mode_enabled and not account._wechat_verify_callback_signature(
+                signature=args.get("signature"),
+                timestamp=timestamp,
+                nonce=nonce,
+            ):
                 self._log_diag("wechat.verify.invalid_signature", "warning", account, http_status=401)
                 return self._text("invalid signature", status=401)
             try:
@@ -245,10 +253,13 @@ class ChatConnectWebhookController(http.Controller):
             except (UnicodeDecodeError, ET.ParseError):
                 self._log_diag("wechat.webhook.invalid_xml", "warning", account, http_status=400)
                 return self._text("invalid xml", status=400)
-            if account.wechat_safe_mode_enabled and data.get("Encrypt"):
-                encrypt_text = data["Encrypt"]
-                if not account._wechat_verify_msg_signature(
-                    args.get("msg_signature"), timestamp, nonce, encrypt_text
+            if account.wechat_safe_mode_enabled:
+                encrypt_text = data.get("Encrypt") or ""
+                if not account._wechat_verify_callback_signature(
+                    msg_signature=args.get("msg_signature"),
+                    timestamp=timestamp,
+                    nonce=nonce,
+                    encrypt_text=encrypt_text,
                 ):
                     self._log_diag("wechat.verify.invalid_msg_signature", "warning", account, http_status=401)
                     return self._text("invalid msg signature", status=401)

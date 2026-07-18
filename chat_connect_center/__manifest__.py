@@ -1,7 +1,7 @@
 {
     "name": "Chat Connect Center",
     "summary": "Unified chat bridge for WeChat/LINE/WhatsApp to Odoo Discuss",
-    "version": "19.0.2.1.1",
+    "version": "19.0.2.1.2",
     "category": "Discuss",
     "author": "mamingxing",
     "maintainer": "mamingxing",

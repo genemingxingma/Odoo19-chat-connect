@@ -109,7 +109,7 @@ odoo-bin -c /path/to/odoo.conf -d database \
 
 ## 版本
 
-当前模块版本：`19.0.2.1.1`
+当前模块版本：`19.0.2.1.2`
 
 开发者：`mamingxing`
 公司：`iMyTest`

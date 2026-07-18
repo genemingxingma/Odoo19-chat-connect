@@ -276,6 +276,49 @@ class TestChatConnectCore(TransactionCase):
         with self.assertRaises(ChatConnectPermanentError):
             conversation._check_wechat_outbound_window()
 
+    def test_wechat_safe_mode_does_not_fallback_to_plain_signature(self):
+        token = "wechat-test-token"
+        timestamp = "1712345678"
+        nonce = "nonce-1"
+        encrypt_text = "encrypted-payload"
+        wechat = self.env["chat.connect.account"].create(
+            {
+                "name": "Safe WeChat",
+                "platform": "wechat",
+                "wechat_token": token,
+                "wechat_safe_mode_enabled": True,
+                "operator_user_ids": [Command.set(self.operator.ids)],
+            }
+        )
+        signature = hashlib.sha1("".join(sorted([token, timestamp, nonce])).encode()).hexdigest()
+        msg_signature = hashlib.sha1(
+            "".join(sorted([token, timestamp, nonce, encrypt_text])).encode()
+        ).hexdigest()
+
+        self.assertFalse(
+            wechat._wechat_verify_callback_signature(
+                signature=signature,
+                timestamp=timestamp,
+                nonce=nonce,
+            )
+        )
+        self.assertTrue(
+            wechat._wechat_verify_callback_signature(
+                msg_signature=msg_signature,
+                timestamp=timestamp,
+                nonce=nonce,
+                encrypt_text=encrypt_text,
+            )
+        )
+        wechat.wechat_safe_mode_enabled = False
+        self.assertTrue(
+            wechat._wechat_verify_callback_signature(
+                signature=signature,
+                timestamp=timestamp,
+                nonce=nonce,
+            )
+        )
+
     def test_ai_automation_is_exclusive_with_chatbot(self):
         conversation = self._conversation("visitor-ai")
         model_type = type(conversation)
